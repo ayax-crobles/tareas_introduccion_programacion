@@ -258,7 +258,7 @@ Esto permite confirmar de manera visual que los directorios se crearon de forma 
 
 \begin{figure}[htb]
     \centering
-    \includegraphics[width=1\textwidth]{figuras/figura4_thunar.png}
+    \includegraphics[width=0.9\textwidth]{figuras/figura4_thunar.png}
     \caption{Estructura de directorios visualizados en el gestor de archivos Thunar.}
     \label{fig:figura3}
 \end{figure}
@@ -273,7 +273,7 @@ ls -Rlhi
 
 \begin{figure}[htb]
     \centering
-    \includegraphics[width=1\textwidth]{figuras/figura3_permisos_inodos.png}
+    \includegraphics[width=0.9\textwidth]{figuras/figura3_permisos_inodos.png}
     \caption{Inodos y permisos de los archivos del proyecto.}
     \label{fig:figura4}
 \end{figure}
@@ -289,12 +289,12 @@ Este comando combina varias opciones:
 
 De esta manera pude verificar tanto la estructura como los inodos y permisos de cada elemento del proyecto. Ver \autoref{fig:figura4}
 
-\subsection{Cambio de permisos del archivo README}
+\section{Cambio de permisos del archivo README}
 
-El archivo \texttt{README} debía tener permisos de lectura y escritura para el usuario, y solo lectura para grupo y otros.
-Para lograrlo, ejecuté:
+El archivo \texttt{README} debemos otorgarle permisos de lectura y escritura para el usuario, y solo lectura para grupo y otros.
+Para ello, ejecuté los comandos:
 
-\begin{minted}[fontsize=\small, frame=single, linenos]{bash}
+\begin{minted}{bash}
 chmod 644 README
 ls -lh README
 \end{minted}
@@ -308,27 +308,27 @@ ls -lh README
 
 
 El comando \texttt{chmod 644} asigna los permisos de la siguiente forma:
-- \texttt{6} → usuario: lectura y escritura.
-- \texttt{4} → grupo: solo lectura.
-- \texttt{4} → otros: solo lectura.
+\begin{itemize}
+    \item\texttt{6} → usuario: lectura y escritura.
+    \item \texttt{4} → grupo: solo lectura.
+    \item \texttt{4} → otros: solo lectura.
+\end{itemize}
 
 Finalmente, con \texttt{ls -lh README} confirmé que los permisos se aplicaron correctamente, mostrando \texttt{-rw-r--r--}.
 
-\subsection{Conclusión}
+\section{Conclusiones}
 
-Con esta actividad se logró crear y organizar un directorio de trabajo completo para el proyecto.
-La estructura incluye carpetas específicas para análisis, código, datos, herramientas y versiones de envío, además de los archivos \texttt{README} y \texttt{LICENSE}.
+En esta actividad organizamos un directorio de trabajo para el proyecto, creando subcarpetas que nos ayudan a mantener todo en orden y encontrar rápido nuestros archivos.
 
-El uso de comandos como \texttt{mkdir}, \texttt{touch}, \texttt{tree}, \texttt{ls -Rlhi} y \texttt{chmod} permitió no solo construir la organización, sino también verificarla y ajustar los permisos de manera correcta.
+Se usaron comandos básicos como \texttt{mkdir}, \texttt{touch}, \texttt{tree}, \texttt{ls} y \texttt{chmod} para construir la estructura de nuestro espacio de trabajo, revisarla y ajustar permisos.
+Esta organización facilita que cualquier persona entienda el proyecto y refuerza la importancia de mantener el orden desde el inicio.
 
-Este tipo de organización facilita que cualquier persona (incluyéndonos a nosotros mismos en el futuro) pueda entender rápidamente qué se hizo y dónde se encuentra cada parte del trabajo.
-En resumen, la actividad refuerza la importancia de documentar y mantener ordenados los proyectos de investigación desde el inicio.
 
 \section{Bibliografía}
 %\nocite{*}
 %\printbibliography[heading=none]
 
 %\newpage
-\section*{Anexos}
+%\section*{Anexos}
 
 \end{document}
