@@ -1,0 +1,4 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{n+nb}{cd}\PYG{+w}{ }data
+mkdir\PYG{+w}{ }\PYGZhy{}v\PYG{+w}{ }raw\PYG{+w}{ }processed
+\end{MintedVerbatim}

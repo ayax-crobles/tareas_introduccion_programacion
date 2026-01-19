@@ -1,0 +1,290 @@
+% Clase de Documento
+\documentclass[
+a4paper,
+12pt
+]
+{article}
+
+% Paquete básico para idioma y codificación
+\usepackage{fontspec}
+\usepackage[spanish, es-tabla]{babel}
+    \babelprovide[import, main]{spanish}
+    %\babeltags{es=spanish}
+\usepackage{csquotes}
+\usepackage{unicode-math}
+
+% Tipografía y microajuste
+\usepackage[babel]{microtype}
+\usepackage{libertinus-otf} %contine todos los tipos de letra libertinus
+\renewcommand{\familydefault}{\sfdefault} % fuerza sans serif como fuente principal
+
+% Diseño de página y márgenes
+\usepackage{geometry}
+    \geometry{
+    top=2.5cm,
+    bottom=2.5cm,
+    left=2.5cm,
+    right=2.5cm
+    }
+
+% Espaciado y Sangrías
+\usepackage{parskip}
+
+\usepackage{setspace}
+    \singlespacing
+    %\onehalfspacing
+    %\doublespacing
+    %\setstretch{1.25}
+
+% Paquete de colores
+\usepackage[dvipsnames, x11names]{xcolor}
+    \definecolor{AMCblue}{cmyk}{0.8, 0.45, 0, 0.6}
+    \definecolor{AMCgold}{cmyk}{0, 0.15, 0.5, 0.4}
+    \definecolor{AMCgreen}{cmyk}{0.6, 0, 0.7, 0.6}
+    \definecolor{AMCbluelight}{cmyk}{0.7, 0.3, 0, 0.4}
+    \definecolor{DarkTeal}{cmyk}{0.9, 0.5, 0.3, 0.6}
+    \definecolor{LightGray}{cmyk}{0.01,0,0,0.04}
+
+% Paquete para insertar PDFs
+\usepackage{pdfpages}
+
+%Imágenes y gráficos
+\usepackage{graphicx}
+\usepackage{float}         % Requerido para [H]
+\usepackage{wrapfig}       % Requerido para R/L en wrapfigure
+%\usepackage{subcaption}  % para crear subfiguras
+\usepackage{caption}        % Opciones avanzadas para captions
+
+% Estilo profesional de caption, fig y tablas
+\captionsetup{
+    font=footnotesize,          % Tamaño de letra de la leyenda
+    labelfont={bf,small},       % Negrita para "Figura" o "Tabla", tamaño pequeño
+    labelsep=colon,             % Separador entre "Figura 1" y el título (:)
+    justification=justified,    % Alineación justificada (puede ser raggedright, centering, etc.)
+    singlelinecheck=false,      % Justifica también leyendas de una sola línea
+    skip=8pt,                   % Espacio vertical entre la figura y la leyenda
+    width=0.9\textwidth         % Ancho máximo de la leyenda
+}
+
+% Encabezados y Pie de páginas
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{} % limpia encabezados y pies
+
+\setlength{\headheight}{24pt}
+\renewcommand{\headrulewidth}{0pt} % opcional: elimina la línea superior
+
+% Solo número de página en el pie izquierdo
+\fancyfoot[R]{\thepage}
+
+% Personalización de títulos
+
+\usepackage{titlesec}
+
+    % definir formato de títulos de sección
+    \titleformat{\section}
+    {
+    \color{AMCblue}
+    \Large\bfseries
+    }
+    {\thesection.}
+    {1em}
+    {}
+
+    % definir formato de títulos de subsección
+     \titleformat{\subsection}
+    {
+    \color{AMCbluelight}
+    \large\bfseries
+    }
+    {\thesubsection.}
+    {1em}
+    {}
+%  Hipervinculos y referencias internas o referencias cruzadas
+\usepackage[hidelinks]{hyperref}
+
+% --- Fondo para todas las páginas excepto la primera ---
+\newif\ifportada
+\portadatrue % al inicio estamos en la portada
+
+\usepackage{tikzpagenodes}
+
+\AddToHook{shipout/background}{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \ifportada
+      \node at (current page.center)
+      {\includegraphics[width=\paperwidth,height=\paperheight]{backgrounds/UISEK-portada.pdf}};
+    \else
+      \node at (current page.center)
+      {\includegraphics[width=\paperwidth,height=\paperheight]{backgrounds/UISEK-plantilla.pdf}};
+    \fi
+  \end{tikzpicture}
+}
+
+\usepackage{booktabs}
+
+%Resaltado de código
+\usepackage{minted}
+\usemintedstyle{vim} % o 'colorful', 'monokai', 'borland', etc.
+
+\setminted{
+  frame=lines,
+  framesep=2mm,
+  baselinestretch=1.2,
+  bgcolor=LightGray,
+  fontsize=\small,
+  breaklines=true,
+  breakanywhere=true
+}
+
+%Bibliografía
+
+%Bibliografía con Normas APA
+%    \usepackage[backend=biber, style=apa]{biblatex}
+%    \DeclareLanguageMapping{english}{english-apa} %\addbibresource{referencias.bib}
+% útil para compactar las referencias
+%{biblatex}
+%    \setlength\bibitemsep{1.5ex}
+%    \renewcommand*{\bibfont}{\small}
+
+\begin{document}
+% --- Portada sin número ---
+\thispagestyle{empty}
+
+% ---- aquí tu contenido de portada ----
+\vspace*{9cm}
+\begin{center}
+{\fontsize{18}{22}\selectfont
+\textbf{Maestría en bioinformática} \\
+\textbf{Introducción a la biología molecular y secuenciación} \\
+\textbf{Docente: Ing. Byron Fuertes}
+}
+
+\vspace{3cm}
+
+{\fontsize{24}{28}\selectfont \textcolor{AMCblue}{\textbf{Tarea 6: Análisis bioinformático del gen KRAS}}}
+\vspace*{3cm} % 3 cm más abajo
+
+{\fontsize{20}{24}\selectfont \textbf{Estudiante: Christian Robles}}
+
+\vspace*{3cm} % 2 cm más abajo
+{\fontsize{12}{14}\selectfont Fecha de entrega: 18 de Diciembre de 2025}
+\end{center}
+
+\newpage
+
+% <<< DESPUÉS de pasar la portada apagamos la bandera >>>
+\portadafalse
+\setcounter{page}{1} % reiniciamos el contador de páginas
+
+\section{Actividad 1: Creación del directorio de trabajo}
+
+Para comenzar el ejercicio, lo primero fue crear el directorio raíz del proyecto.  
+Este directorio sigue la convención \texttt{User\_project\_year\_publication}, en mi caso:
+
+\begin{minted}[fontsize=\small, frame=single, linenos]{bash}
+mkdir -v Robles_PhageOmics_2026_Science
+cd Robles_PhageOmics_2026_Science
+\end{minted}
+
+El comando \texttt{mkdir} sirve para crear directorios.  
+La opción \texttt{-v} (verbose) muestra un mensaje confirmando la creación, lo cual ayuda a verificar que se hizo correctamente.  
+Luego usamos \texttt{cd} para entrar al nuevo directorio y empezar a organizar la estructura interna.
+
+\subsection{Creación de subdirectorios y archivos}
+
+Una vez dentro del directorio principal, organicé la estructura básica del proyecto.  
+Para ello, ejecuté los siguientes comandos:
+
+\begin{minted}[fontsize=\small, frame=single, linenos]{bash}
+mkdir -v analysis code data tools submission
+touch README LICENSE
+\end{minted}
+
+El comando \texttt{mkdir} permite crear varios directorios a la vez, en este caso:  
+\texttt{analysis}, \texttt{code}, \texttt{data}, \texttt{tools} y \texttt{submission}.  
+El comando \texttt{touch} se usó para generar dos archivos vacíos: \texttt{README} y \texttt{LICENSE}, que servirán para documentar y dar licencia al proyecto.
+
+\subsection{Creación de subdirectorios adicionales}
+
+Dentro de \texttt{data}, añadí dos carpetas para diferenciar los datos en bruto y los procesados:
+
+\begin{minted}[fontsize=\small, frame=single, linenos]{bash}
+cd data
+mkdir -v raw processed
+\end{minted}
+
+De esta manera, los archivos originales se guardarán en \texttt{raw}, mientras que los resultados ya trabajados se almacenarán en \texttt{processed}.
+
+Luego, dentro de \texttt{submission}, creé dos versiones para organizar los envíos del proyecto:
+
+\begin{minted}[fontsize=\small, frame=single, linenos]{bash}
+cd ../submission
+mkdir -v version1 version2
+\end{minted}
+
+Esto permite mantener un control claro de las distintas versiones que se preparen para enviar a una revista o conferencia.
+
+\subsection{Verificación de la estructura con \texttt{tree}}
+
+Después de crear todos los directorios y archivos, verifiqué que la estructura estuviera organizada correctamente.  
+Para esto utilicé el comando:
+
+\begin{minted}[fontsize=\small, frame=single, linenos]{bash}
+tree ~/Robles_PhageOmics_2026_Science/
+\end{minted}
+
+El comando \texttt{tree} muestra la estructura de carpetas y archivos en forma jerárquica.  
+Esto permite confirmar de manera visual que los directorios \texttt{analysis}, \texttt{code}, \texttt{data}, \texttt{tools}, \texttt{submission}, y los archivos \texttt{README} y \texttt{LICENSE} se encuentran en el lugar correcto.  
+Además, se puede ver que dentro de \texttt{data} están las carpetas \texttt{raw} y \texttt{processed}, y dentro de \texttt{submission} las carpetas \texttt{version1} y \texttt{version2}.
+\subsection{Listado de inodos y permisos}
+
+Para revisar las características de cada archivo y directorio, utilicé el siguiente comando:
+
+\begin{minted}[fontsize=\small, frame=single, linenos]{bash}
+ls -Rlhi
+\end{minted}
+
+Este comando combina varias opciones:
+- \texttt{-R} → listado recursivo, muestra todo el contenido de subdirectorios.
+- \texttt{-l} → formato detallado, incluye permisos, propietario y tamaño.
+- \texttt{-h} → tamaños en formato legible (KB, MB).
+- \texttt{-i} → muestra el número de inodo de cada archivo o carpeta.
+
+De esta manera pude verificar tanto la estructura como los inodos y permisos de cada elemento del proyecto.
+
+\subsection{Cambio de permisos del archivo README}
+
+El archivo \texttt{README} debía tener permisos de lectura y escritura para el usuario, y solo lectura para grupo y otros.  
+Para lograrlo, ejecuté:
+
+\begin{minted}[fontsize=\small, frame=single, linenos]{bash}
+chmod 644 README
+ls -lh README
+\end{minted}
+
+El comando \texttt{chmod 644} asigna los permisos de la siguiente forma:
+- \texttt{6} → usuario: lectura y escritura.
+- \texttt{4} → grupo: solo lectura.
+- \texttt{4} → otros: solo lectura.
+
+Finalmente, con \texttt{ls -lh README} confirmé que los permisos se aplicaron correctamente, mostrando \texttt{-rw-r--r--}.
+
+\subsection{Conclusión}
+
+Con esta actividad se logró crear y organizar un directorio de trabajo completo para el proyecto.  
+La estructura incluye carpetas específicas para análisis, código, datos, herramientas y versiones de envío, además de los archivos \texttt{README} y \texttt{LICENSE}.  
+
+El uso de comandos como \texttt{mkdir}, \texttt{touch}, \texttt{tree}, \texttt{ls -Rlhi} y \texttt{chmod} permitió no solo construir la organización, sino también verificarla y ajustar los permisos de manera correcta.  
+
+Este tipo de organización facilita que cualquier persona (incluyéndonos a nosotros mismos en el futuro) pueda entender rápidamente qué se hizo y dónde se encuentra cada parte del trabajo.  
+En resumen, la actividad refuerza la importancia de documentar y mantener ordenados los proyectos de investigación desde el inicio.
+
+\section{Bibliografía}
+%\nocite{*}
+%\printbibliography[heading=none]
+
+%\newpage
+\section*{Anexos}
+
+\end{document}

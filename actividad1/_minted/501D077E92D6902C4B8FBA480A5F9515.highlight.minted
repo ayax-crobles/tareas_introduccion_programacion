@@ -1,0 +1,4 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+chmod\PYG{+w}{ }\PYG{l+m}{644}\PYG{+w}{ }README
+ls\PYG{+w}{ }\PYGZhy{}lh\PYG{+w}{ }README
+\end{MintedVerbatim}

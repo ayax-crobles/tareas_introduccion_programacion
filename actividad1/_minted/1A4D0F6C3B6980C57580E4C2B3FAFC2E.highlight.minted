@@ -1,0 +1,4 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{n+nb}{cd}\PYG{+w}{ }../submission
+mkdir\PYG{+w}{ }\PYGZhy{}v\PYG{+w}{ }version1\PYG{+w}{ }version2
+\end{MintedVerbatim}
