@@ -10,7 +10,6 @@ a4paper,
 \usepackage[spanish, es-tabla]{babel}
     \babelprovide[import, main]{spanish}
     %\babeltags{es=spanish}
-\usepackage{csquotes}
 \usepackage{unicode-math}
 
 % Tipografía y microajuste
@@ -102,7 +101,7 @@ a4paper,
     {}
 %  Hipervinculos y referencias internas o referencias cruzadas
 \usepackage[hidelinks]{hyperref}
-
+\usepackage{cleveref}
 % --- Fondo para todas las páginas excepto la primera ---
 \newif\ifportada
 \portadatrue % al inicio estamos en la portada
@@ -125,11 +124,11 @@ a4paper,
 
 %Resaltado de código
 \usepackage{minted}
-\usemintedstyle{vim} % o 'colorful', 'monokai', 'borland', etc.
+\usemintedstyle{colorful} % o 'colorful', 'monokai', 'borland', etc.
 
 \setminted{
-  frame=lines,
-  framesep=2mm,
+  %frame=lines,
+  %framesep=2mm,
   baselinestretch=1.2,
   bgcolor=LightGray,
   fontsize=\small,
@@ -137,6 +136,8 @@ a4paper,
   breakanywhere=true
 }
 
+
+\usepackage{csquotes}
 %Bibliografía
 
 %Bibliografía con Normas APA
@@ -156,19 +157,19 @@ a4paper,
 \begin{center}
 {\fontsize{18}{22}\selectfont
 \textbf{Maestría en bioinformática} \\
-\textbf{Introducción a la biología molecular y secuenciación} \\
-\textbf{Docente: Ing. Byron Fuertes}
+\textbf{Principios y Lógica de Programación} \\
+\textbf{Docente: Ing. María Gabriela Echeverría}
 }
 
 \vspace{3cm}
 
-{\fontsize{24}{28}\selectfont \textcolor{AMCblue}{\textbf{Tarea 6: Análisis bioinformático del gen KRAS}}}
+{\fontsize{24}{28}\selectfont \textcolor{AMCblue}{\textbf{Actividad 1: Creación del directorio de trabajo}}}
 \vspace*{3cm} % 3 cm más abajo
 
 {\fontsize{20}{24}\selectfont \textbf{Estudiante: Christian Robles}}
 
 \vspace*{3cm} % 2 cm más abajo
-{\fontsize{12}{14}\selectfont Fecha de entrega: 18 de Diciembre de 2025}
+{\fontsize{12}{14}\selectfont Fecha de entrega: 20 de Enero de 2026}
 \end{center}
 
 \newpage
@@ -177,16 +178,22 @@ a4paper,
 \portadafalse
 \setcounter{page}{1} % reiniciamos el contador de páginas
 
-\section{Actividad 1: Creación del directorio de trabajo}
+\section{Introducción}
+Esta actividad busca aplicar conceptos de organización en un \textit{espacio de trabajo} dentro del sistema operativo \textbf{GNU/Linux}, como la creación de \textit{directorios} y \textit{archivos}, además de aprender a movernos dentro de ellos de manera práctica. La tarea la llevé a cabo en \textbf{Debian 13 Trixie}, utilizando el entorno de escritorio \textbf{XFCE} y el gestor de archivos \textbf{Thunar}.
+
+\section{Creación del directorio de trabajo}
 
 Para comenzar el ejercicio, lo primero fue crear el directorio raíz del proyecto.
-Este directorio sigue la convención \texttt{User\_project\_year\_publication}, en mi caso:
+Este directorio sigue la convención propuesta \texttt{User\_project\_year\_publication}, en mi caso:
 
-\begin{minted}[fontsize=\small, frame=single, linenos]{bash}
+\begin{minted}{bash}
 mkdir -v Robles_PhageOmics_2026_Science
 cd Robles_PhageOmics_2026_Science
 \end{minted}
 
+El comando \texttt{mkdir} sirve para crear directorios.
+La opción \texttt{-v} (verbose) muestra un mensaje del directorio que se creo, lo cual ayuda a verificar que se hizo correctamente.
+Luego usamos \texttt{cd} para entrar al nuevo directorio y empezar a organizar la estructura interna.
 \begin{figure}[htb]
     \centering
     \includegraphics[width=1\textwidth]{figuras/figura1.png}
@@ -194,50 +201,45 @@ cd Robles_PhageOmics_2026_Science
     \label{fig:figura1}
 \end{figure}
 
-El comando \texttt{mkdir} sirve para crear directorios.
-La opción \texttt{-v} (verbose) muestra un mensaje confirmando la creación, lo cual ayuda a verificar que se hizo correctamente.
-Luego usamos \texttt{cd} para entrar al nuevo directorio y empezar a organizar la estructura interna.
+\section{Creación de subdirectorios y archivos}
 
-\subsection{Creación de subdirectorios y archivos}
-
-Una vez dentro del directorio principal, organicé la estructura básica del proyecto.
+Una vez dentro del directorio principal, organicé la estructura básica del proyecto. Como se muestra en la \autoref{fig:figura1}.\\
 Para ello, ejecuté los siguientes comandos:
 
-\begin{minted}[fontsize=\small, frame=single, linenos]{bash}
-mkdir -v analysis code data tools submission
-touch README LICENSE
+\begin{minted}{bash}
+mkdir -v analysis code data tools submission ; touch README LICENSE
 \end{minted}
 
 El comando \texttt{mkdir} permite crear varios directorios a la vez, en este caso:
 \texttt{analysis}, \texttt{code}, \texttt{data}, \texttt{tools} y \texttt{submission}.
-El comando \texttt{touch} se usó para generar dos archivos vacíos: \texttt{README} y \texttt{LICENSE}, que servirán para documentar y dar licencia al proyecto.
+El comando \texttt{touch} se usó para generar dos archivos vacíos: \texttt{README} y \texttt{LICENSE}.
 
-\subsection{Creación de subdirectorios adicionales}
+\section{Creación de subdirectorios adicionales}
 
-Dentro de \texttt{data}, añadí dos carpetas para diferenciar los datos en bruto y los procesados:
+Dentro del directorio \texttt{data}, añadí dos carpetas raw y processed que serán útiles para organizar los datos del proyecto. Ver la \autoref{fig:figura1}.
 
-\begin{minted}[fontsize=\small, frame=single, linenos]{bash}
+\begin{minted}{bash}
 cd data
 mkdir -v raw processed
 \end{minted}
 
-De esta manera, los archivos originales se guardarán en \texttt{raw}, mientras que los resultados ya trabajados se almacenarán en \texttt{processed}.
+%De esta manera, los archivos originales se guardarán en \texttt{raw}, mientras que los resultados ya trabajados se almacenarán en \texttt{processed}.
 
-Luego, dentro de \texttt{submission}, creé dos versiones para organizar los envíos del proyecto:
+Luego, dentro del directorio \texttt{submission}, creé dos directorios version1 y version2:
 
-\begin{minted}[fontsize=\small, frame=single, linenos]{bash}
+\begin{minted}{bash}
 cd ../submission
 mkdir -v version1 version2
 \end{minted}
 
-Esto permite mantener un control claro de las distintas versiones que se preparen para enviar a una revista o conferencia.
+%Esto permite mantener un control claro de las distintas versiones que se preparen para enviar a una revista o conferencia.
 
-\subsection{Verificación de la estructura con \texttt{tree}}
+\section{Verificación de la estructura con \texttt{tree}}
 
 Después de crear todos los directorios y archivos, verifiqué que la estructura estuviera organizada correctamente.
 Para esto utilicé el comando:
 
-\begin{minted}[fontsize=\small, frame=single, linenos]{bash}
+\begin{minted}{bash}
 tree ~/Robles_PhageOmics_2026_Science/
 \end{minted}
 
@@ -250,8 +252,9 @@ tree ~/Robles_PhageOmics_2026_Science/
 
 
 El comando \texttt{tree} muestra la estructura de carpetas y archivos en forma jerárquica.
-Esto permite confirmar de manera visual que los directorios \texttt{analysis}, \texttt{code}, \texttt{data}, \texttt{tools}, \texttt{submission}, y los archivos \texttt{README} y \texttt{LICENSE} se encuentran en el lugar correcto.
-Además, se puede ver que dentro de \texttt{data} están las carpetas \texttt{raw} y \texttt{processed}, y dentro de \texttt{submission} las carpetas \texttt{version1} y \texttt{version2}.
+Esto permite confirmar de manera visual que los directorios se crearon de forma correcta de acuardo al esquema planteado.
+%\texttt{analysis}, \texttt{code}, \texttt{data}, \texttt{tools}, \texttt{submission}, y los archivos \texttt{README} y \texttt{LICENSE} se encuentran en el lugar correcto.
+%Además, se puede ver que dentro de \texttt{data} están las carpetas \texttt{raw} y \texttt{processed}, y dentro de \texttt{submission} las carpetas \texttt{version1} y \texttt{version2}.
 
 \begin{figure}[htb]
     \centering
@@ -260,11 +263,11 @@ Además, se puede ver que dentro de \texttt{data} están las carpetas \texttt{ra
     \label{fig:figura3}
 \end{figure}
 
-\subsection{Listado de inodos y permisos}
+\section{Listado de inodos y permisos}
 
 Para revisar las características de cada archivo y directorio, utilicé el siguiente comando:
 
-\begin{minted}[fontsize=\small, frame=single, linenos]{bash}
+\begin{minted}{bash}
 ls -Rlhi
 \end{minted}
 
@@ -276,12 +279,15 @@ ls -Rlhi
 \end{figure}
 
 Este comando combina varias opciones:
-- \texttt{-R} → listado recursivo, muestra todo el contenido de subdirectorios.
-- \texttt{-l} → formato detallado, incluye permisos, propietario y tamaño.
-- \texttt{-h} → tamaños en formato legible (KB, MB).
-- \texttt{-i} → muestra el número de inodo de cada archivo o carpeta.
+\begin{enumerate}
+    \item \texttt{R} → listado recursivo, muestra todo el contenido de subdirectorios.
+    \item \texttt{l} → formato detallado, incluye permisos, propietario y tamaño.
+    \item \texttt{h} → tamaños en formato legible (KB, MB).
+    \item \texttt{i} → muestra el número de inodo de cada archivo o carpeta.
+\end{enumerate}
 
-De esta manera pude verificar tanto la estructura como los inodos y permisos de cada elemento del proyecto.
+
+De esta manera pude verificar tanto la estructura como los inodos y permisos de cada elemento del proyecto. Ver \autoref{fig:figura4}
 
 \subsection{Cambio de permisos del archivo README}
 

@@ -1,4 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\}]
-mkdir\PYG{+w}{ }\PYGZhy{}v\PYG{+w}{ }analysis\PYG{+w}{ }code\PYG{+w}{ }data\PYG{+w}{ }tools\PYG{+w}{ }submission
-touch\PYG{+w}{ }README\PYG{+w}{ }LICENSE
-\end{MintedVerbatim}
