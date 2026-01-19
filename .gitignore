@@ -1,0 +1,23 @@
+# Archivos auxiliares LaTeX
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+*.xdv
+
+# PDF compilado
+main.pdf
+
+# Temporales del sistema
+*~
+*.swp
+.DS_Store

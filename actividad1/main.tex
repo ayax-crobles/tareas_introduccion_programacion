@@ -179,7 +179,7 @@ a4paper,
 
 \section{Actividad 1: Creación del directorio de trabajo}
 
-Para comenzar el ejercicio, lo primero fue crear el directorio raíz del proyecto.  
+Para comenzar el ejercicio, lo primero fue crear el directorio raíz del proyecto.
 Este directorio sigue la convención \texttt{User\_project\_year\_publication}, en mi caso:
 
 \begin{minted}[fontsize=\small, frame=single, linenos]{bash}
@@ -187,13 +187,20 @@ mkdir -v Robles_PhageOmics_2026_Science
 cd Robles_PhageOmics_2026_Science
 \end{minted}
 
-El comando \texttt{mkdir} sirve para crear directorios.  
-La opción \texttt{-v} (verbose) muestra un mensaje confirmando la creación, lo cual ayuda a verificar que se hizo correctamente.  
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=1\textwidth]{figuras/figura1.png}
+    \caption{Creación del directorio principal del proyecto y de subdirectorios con el comando mkdir, creación de archivos inicales con touch.}
+    \label{fig:figura1}
+\end{figure}
+
+El comando \texttt{mkdir} sirve para crear directorios.
+La opción \texttt{-v} (verbose) muestra un mensaje confirmando la creación, lo cual ayuda a verificar que se hizo correctamente.
 Luego usamos \texttt{cd} para entrar al nuevo directorio y empezar a organizar la estructura interna.
 
 \subsection{Creación de subdirectorios y archivos}
 
-Una vez dentro del directorio principal, organicé la estructura básica del proyecto.  
+Una vez dentro del directorio principal, organicé la estructura básica del proyecto.
 Para ello, ejecuté los siguientes comandos:
 
 \begin{minted}[fontsize=\small, frame=single, linenos]{bash}
@@ -201,8 +208,8 @@ mkdir -v analysis code data tools submission
 touch README LICENSE
 \end{minted}
 
-El comando \texttt{mkdir} permite crear varios directorios a la vez, en este caso:  
-\texttt{analysis}, \texttt{code}, \texttt{data}, \texttt{tools} y \texttt{submission}.  
+El comando \texttt{mkdir} permite crear varios directorios a la vez, en este caso:
+\texttt{analysis}, \texttt{code}, \texttt{data}, \texttt{tools} y \texttt{submission}.
 El comando \texttt{touch} se usó para generar dos archivos vacíos: \texttt{README} y \texttt{LICENSE}, que servirán para documentar y dar licencia al proyecto.
 
 \subsection{Creación de subdirectorios adicionales}
@@ -227,16 +234,32 @@ Esto permite mantener un control claro de las distintas versiones que se prepare
 
 \subsection{Verificación de la estructura con \texttt{tree}}
 
-Después de crear todos los directorios y archivos, verifiqué que la estructura estuviera organizada correctamente.  
+Después de crear todos los directorios y archivos, verifiqué que la estructura estuviera organizada correctamente.
 Para esto utilicé el comando:
 
 \begin{minted}[fontsize=\small, frame=single, linenos]{bash}
 tree ~/Robles_PhageOmics_2026_Science/
 \end{minted}
 
-El comando \texttt{tree} muestra la estructura de carpetas y archivos en forma jerárquica.  
-Esto permite confirmar de manera visual que los directorios \texttt{analysis}, \texttt{code}, \texttt{data}, \texttt{tools}, \texttt{submission}, y los archivos \texttt{README} y \texttt{LICENSE} se encuentran en el lugar correcto.  
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=1\textwidth]{figuras/figura2_tree1.png}
+    \caption{Confirmación de la estructura de directorios con el comando \texttt{tree}}
+    \label{fig:figura2}
+\end{figure}
+
+
+El comando \texttt{tree} muestra la estructura de carpetas y archivos en forma jerárquica.
+Esto permite confirmar de manera visual que los directorios \texttt{analysis}, \texttt{code}, \texttt{data}, \texttt{tools}, \texttt{submission}, y los archivos \texttt{README} y \texttt{LICENSE} se encuentran en el lugar correcto.
 Además, se puede ver que dentro de \texttt{data} están las carpetas \texttt{raw} y \texttt{processed}, y dentro de \texttt{submission} las carpetas \texttt{version1} y \texttt{version2}.
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=1\textwidth]{figuras/figura4_thunar.png}
+    \caption{Estructura de directorios visualizados en el gestor de archivos Thunar.}
+    \label{fig:figura3}
+\end{figure}
+
 \subsection{Listado de inodos y permisos}
 
 Para revisar las características de cada archivo y directorio, utilicé el siguiente comando:
@@ -244,6 +267,13 @@ Para revisar las características de cada archivo y directorio, utilicé el sigu
 \begin{minted}[fontsize=\small, frame=single, linenos]{bash}
 ls -Rlhi
 \end{minted}
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=1\textwidth]{figuras/figura3_permisos_inodos.png}
+    \caption{Inodos y permisos de los archivos del proyecto.}
+    \label{fig:figura4}
+\end{figure}
 
 Este comando combina varias opciones:
 - \texttt{-R} → listado recursivo, muestra todo el contenido de subdirectorios.
@@ -255,13 +285,21 @@ De esta manera pude verificar tanto la estructura como los inodos y permisos de 
 
 \subsection{Cambio de permisos del archivo README}
 
-El archivo \texttt{README} debía tener permisos de lectura y escritura para el usuario, y solo lectura para grupo y otros.  
+El archivo \texttt{README} debía tener permisos de lectura y escritura para el usuario, y solo lectura para grupo y otros.
 Para lograrlo, ejecuté:
 
 \begin{minted}[fontsize=\small, frame=single, linenos]{bash}
 chmod 644 README
 ls -lh README
 \end{minted}
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=1\textwidth]{figuras/figura5_readme_.png}
+    \caption{Cambio de permisos del archivo README con \texttt{chmod}}
+    \label{fig:figura5}
+\end{figure}
+
 
 El comando \texttt{chmod 644} asigna los permisos de la siguiente forma:
 - \texttt{6} → usuario: lectura y escritura.
@@ -272,12 +310,12 @@ Finalmente, con \texttt{ls -lh README} confirmé que los permisos se aplicaron c
 
 \subsection{Conclusión}
 
-Con esta actividad se logró crear y organizar un directorio de trabajo completo para el proyecto.  
-La estructura incluye carpetas específicas para análisis, código, datos, herramientas y versiones de envío, además de los archivos \texttt{README} y \texttt{LICENSE}.  
+Con esta actividad se logró crear y organizar un directorio de trabajo completo para el proyecto.
+La estructura incluye carpetas específicas para análisis, código, datos, herramientas y versiones de envío, además de los archivos \texttt{README} y \texttt{LICENSE}.
 
-El uso de comandos como \texttt{mkdir}, \texttt{touch}, \texttt{tree}, \texttt{ls -Rlhi} y \texttt{chmod} permitió no solo construir la organización, sino también verificarla y ajustar los permisos de manera correcta.  
+El uso de comandos como \texttt{mkdir}, \texttt{touch}, \texttt{tree}, \texttt{ls -Rlhi} y \texttt{chmod} permitió no solo construir la organización, sino también verificarla y ajustar los permisos de manera correcta.
 
-Este tipo de organización facilita que cualquier persona (incluyéndonos a nosotros mismos en el futuro) pueda entender rápidamente qué se hizo y dónde se encuentra cada parte del trabajo.  
+Este tipo de organización facilita que cualquier persona (incluyéndonos a nosotros mismos en el futuro) pueda entender rápidamente qué se hizo y dónde se encuentra cada parte del trabajo.
 En resumen, la actividad refuerza la importancia de documentar y mantener ordenados los proyectos de investigación desde el inicio.
 
 \section{Bibliografía}

@@ -1,0 +1,4 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+mkdir\PYG{+w}{ }\PYGZhy{}v\PYG{+w}{ }actividad3\PYG{+w}{ }\PYG{p}{;}\PYG{+w}{ }\PYG{n+nb}{cd}\PYG{+w}{ }actividad3\PYG{+w}{ }\PYG{p}{;}\PYG{+w}{ }\PYG{l+s+se}{\PYGZbs{}}
+mv\PYG{+w}{ }\PYGZhy{}v\PYG{+w}{ }\PYGZti{}/Descargas/secuencias\PYGZus{}cov.fasta\PYG{+w}{ }.\PYG{+w}{ }\PYG{p}{;}\PYG{+w}{ }ls
+\end{MintedVerbatim}

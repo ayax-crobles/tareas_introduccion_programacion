@@ -1,0 +1,380 @@
+% Clase de Documento
+\documentclass[
+a4paper,
+12pt
+]
+{article}
+
+% Paquete básico para idioma y codificación
+\usepackage{fontspec}
+\usepackage[spanish, es-tabla]{babel}
+    \babelprovide[import, main]{spanish}
+    %\babeltags{es=spanish}
+\usepackage{csquotes}
+\usepackage{unicode-math}
+
+% Tipografía y microajuste
+\usepackage[babel]{microtype}
+\usepackage{libertinus-otf} %contine todos los tipos de letra libertinus
+\renewcommand{\familydefault}{\sfdefault} % fuerza sans serif como fuente principal
+
+% Diseño de página y márgenes
+\usepackage{geometry}
+    \geometry{
+    top=2.5cm,
+    bottom=2.5cm,
+    left=2.5cm,
+    right=2.5cm
+    }
+
+% Espaciado y Sangrías
+\usepackage{parskip}
+
+\usepackage{setspace}
+    \singlespacing
+    %\onehalfspacing
+    %\doublespacing
+    %\setstretch{1.25}
+
+% Paquete de colores
+\usepackage[dvipsnames, x11names]{xcolor}
+    \definecolor{AMCblue}{cmyk}{0.8, 0.45, 0, 0.6}
+    \definecolor{AMCgold}{cmyk}{0, 0.15, 0.5, 0.4}
+    \definecolor{AMCgreen}{cmyk}{0.6, 0, 0.7, 0.6}
+    \definecolor{AMCbluelight}{cmyk}{0.7, 0.3, 0, 0.4}
+    \definecolor{DarkTeal}{cmyk}{0.9, 0.5, 0.3, 0.6}
+    \definecolor{LightGray}{cmyk}{0.01,0,0,0.04}
+
+% Paquete para insertar PDFs
+\usepackage{pdfpages}
+
+%Imágenes y gráficos
+\usepackage{graphicx}
+\usepackage{float}         % Requerido para [H]
+\usepackage{wrapfig}       % Requerido para R/L en wrapfigure
+%\usepackage{subcaption}  % para crear subfiguras
+\usepackage{caption}        % Opciones avanzadas para captions
+
+% Estilo profesional de caption, fig y tablas
+\captionsetup{
+    font=footnotesize,          % Tamaño de letra de la leyenda
+    labelfont={bf,small},       % Negrita para "Figura" o "Tabla", tamaño pequeño
+    labelsep=colon,             % Separador entre "Figura 1" y el título (:)
+    justification=justified,    % Alineación justificada (puede ser raggedright, centering, etc.)
+    singlelinecheck=false,      % Justifica también leyendas de una sola línea
+    skip=8pt,                   % Espacio vertical entre la figura y la leyenda
+    width=0.9\textwidth         % Ancho máximo de la leyenda
+}
+
+% Encabezados y Pie de páginas
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{} % limpia encabezados y pies
+
+\setlength{\headheight}{24pt}
+\renewcommand{\headrulewidth}{0pt} % opcional: elimina la línea superior
+
+% Solo número de página en el pie izquierdo
+\fancyfoot[R]{\thepage}
+
+% Personalización de títulos
+
+\usepackage{titlesec}
+
+    % definir formato de títulos de sección
+    \titleformat{\section}
+    {
+    \color{AMCblue}
+    \Large\bfseries
+    }
+    {\thesection.}
+    {1em}
+    {}
+
+    % definir formato de títulos de subsección
+     \titleformat{\subsection}
+    {
+    \color{AMCbluelight}
+    \large\bfseries
+    }
+    {\thesubsection.}
+    {1em}
+    {}
+%  Hipervinculos y referencias internas o referencias cruzadas
+\usepackage[hidelinks]{hyperref}
+
+% --- Fondo para todas las páginas excepto la primera ---
+\newif\ifportada
+\portadatrue % al inicio estamos en la portada
+
+\usepackage{tikzpagenodes}
+
+\AddToHook{shipout/background}{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \ifportada
+      \node at (current page.center)
+      {\includegraphics[width=\paperwidth,height=\paperheight]{backgrounds/UISEK-portada.pdf}};
+    \else
+      \node at (current page.center)
+      {\includegraphics[width=\paperwidth,height=\paperheight]{backgrounds/UISEK-plantilla.pdf}};
+    \fi
+  \end{tikzpicture}
+}
+
+\usepackage{booktabs}
+
+%Resaltado de código
+\usepackage{minted}
+\usemintedstyle{vim} % o 'colorful', 'monokai', 'borland', etc.
+
+\setminted{
+  frame=lines,
+  framesep=2mm,
+  baselinestretch=1.2,
+  bgcolor=LightGray,
+  fontsize=\small,
+  breaklines=true,
+  breakanywhere=true
+}
+
+%Bibliografía
+
+%Bibliografía con Normas APA
+%    \usepackage[backend=biber, style=apa]{biblatex}
+%    \DeclareLanguageMapping{english}{english-apa} %\addbibresource{referencias.bib}
+% útil para compactar las referencias
+%{biblatex}
+%    \setlength\bibitemsep{1.5ex}
+%    \renewcommand*{\bibfont}{\small}
+
+\begin{document}
+% --- Portada sin número ---
+\thispagestyle{empty}
+
+% ---- aquí tu contenido de portada ----
+\vspace*{9cm}
+\begin{center}
+{\fontsize{18}{22}\selectfont
+\textbf{Maestría en Bioinformática} \\
+\textbf{Principios y Lógica de Programación} \\
+\textbf{Docente: Ing. María Gabriela Echeverría}
+}
+
+\vspace{3cm}
+
+{\fontsize{24}{28}\selectfont \textcolor{AMCblue}{\textbf{Tarea 6: Análisis bioinformático del gen KRAS}}}
+\vspace*{3cm} % 3 cm más abajo
+
+{\fontsize{20}{24}\selectfont \textbf{Estudiante: Christian Robles}}
+
+\vspace*{3cm} % 2 cm más abajo
+{\fontsize{12}{14}\selectfont Fecha de entrega: 18 de Diciembre de 2025}
+\end{center}
+
+\newpage
+
+% <<< DESPUÉS de pasar la portada apagamos la bandera >>>
+\portadafalse
+\setcounter{page}{1} % reiniciamos el contador de páginas
+\section{Organización y procesamiento de datos}
+
+\section{Creación del directorio de trabajo y movimiento del archivo inicial}
+
+El primer paso fue crear un nuevo directorio dentro de \texttt{analysis} llamado \texttt{actividad2}, entrar en él y mover el archivo \texttt{metadata\_cov.tsv} desde la carpeta de descargas hacia este nuevo espacio de trabajo.
+Todo esto se realizó en una sola secuencia de comandos:
+
+\begin{minted}[fontsize=\small, frame=single, linenos]{bash}
+mkdir actividad2 ; cd actividad2 ; mv -v ~/Descargas/metadata_cov.tsv .
+\end{minted}
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=1\textwidth]{figuras/figura1_mv.png}
+    \caption{Mover el archivo \texttt{metadata\_cov.tsv} al directorio de trabajo.}
+    \label{fig:figura1}
+\end{figure}
+
+\textbf{Explicación paso a paso:}
+- \texttt{mkdir actividad2} → crea la carpeta donde trabajaremos.
+- \texttt{cd actividad2} → nos mueve directamente dentro de esa carpeta para no tener que escribir rutas largas después.
+- \texttt{mv -v ~/Descargas/metadata\_cov.tsv .} → mueve el archivo desde la carpeta de descargas al directorio actual (\texttt{.}), mostrando un mensaje de confirmación gracias a la opción \texttt{-v}.
+
+\textbf{Justificación del encadenamiento:}
+Encadenar los comandos con \texttt{;} permite ejecutar varias acciones consecutivas en una sola línea, manteniendo el flujo de trabajo más ordenado y evitando escribir cada comando por separado. Esto es útil cuando sabemos exactamente qué pasos queremos realizar uno tras otro.
+
+\textbf{Uso de la virgulilla:}
+La virgulilla en Linux representa el directorio personal del usuario (\texttt{/home/usuario}). En este caso, \texttt{\~/Descargas} apunta directamente a la carpeta de descargas dentro de nuestro home. Usarla hace que los comandos sean más cortos y portables, ya que no necesitamos escribir la ruta completa.
+
+\section{Extracción de IDs y creación del archivo \texttt{EPIs\_cov.tsv}}
+
+El siguiente paso fue trabajar con el archivo \texttt{metadata\_cov.tsv} para obtener únicamente la columna de los identificadores de secuencias (Accession ID).
+Esto se hizo con el comando:
+
+\begin{minted}[fontsize=\small, frame=single, linenos]{bash}
+cut -f2 metadata_cov.tsv > EPIs_cov.tsv ; head -n 25 EPIs_cov.tsv | nl -ba
+\end{minted}
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=1\textwidth]{figuras/figura2_cut_head.png}
+    \caption{Extracción de IDs y visualización de las primeras 25 líneas del archivo con el comando \texttt{head}}
+    \label{fig:figura2}
+\end{figure}
+
+
+\textbf{Explicación paso a paso:}
+- \texttt{cut -f2 metadata\_cov.tsv > EPIs\_cov.tsv} $\rightarrow$ extrae la segunda columna del archivo original y la guarda en un nuevo archivo llamado \texttt{EPIs\_cov.tsv}.
+- \texttt{head -n 25 EPIs\_cov.tsv | nl -ba} $\rightarrow$ muestra las primeras 25 líneas del archivo generado y las numera, incluyendo las líneas en blanco si las hubiera.
+
+\textbf{Justificación del encadenamiento:}
+Se decidió encadenar ambos comandos porque el objetivo era no solo generar el archivo con los IDs, sino también verificar rápidamente que el contenido era correcto. De esta forma, en una sola línea se obtiene el archivo y se revisan sus primeras entradas, lo que ahorra tiempo y asegura que el proceso se ejecutó bien.
+
+\textbf{Elección de comandos:}
+- \texttt{cut} es ideal para extraer columnas específicas de archivos delimitados por tabulaciones, como los \texttt{.tsv}.
+- \texttt{head} permite revisar solo una parte del archivo sin necesidad de abrirlo completo.
+- \texttt{nl -ba} añade numeración a todas las líneas, lo que facilita la referencia y comprobación de los registros.
+
+\section{Cantidad de muestras de covid en diciembre}
+
+En este paso se trabajó con el archivo \texttt{EPIs\_cov.tsv} para calcular cuántas muestras de covid se registraron en diciembre.
+Para ello se utilizó un bloque de comandos encadenados que primero añade un encabezado descriptivo y luego cuenta las líneas del archivo (excluyendo la cabecera):
+
+\begin{minted}[fontsize=\small, frame=single, linenos]{bash}
+{ echo "La cantidad de muestras de covid en Diciembre es:" ; \
+  tail -n +2 EPIs_cov.tsv | wc -l ; } > reporte_cov.txt ; cat reporte_cov.txt
+\end{minted}
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=1\textwidth]{figuras/figura3_cantidad_muestras.png}
+    \caption{cantidad de muestras de covid en diciembre.}
+    \label{fig:figura3}
+\end{figure}
+
+\textbf{Explicación paso a paso:}
+- \texttt{echo "La cantidad de muestras de covid en Diciembre es:"} $\rightarrow$ imprime un mensaje que sirve como encabezado del reporte.
+- \texttt{tail -n +2 EPIs\_cov.tsv | wc -l} $\rightarrow$ elimina la primera línea (cabecera) y cuenta el número de registros restantes.
+- Todo el bloque entre llaves \texttt{\{ ... \}} se redirige con \texttt{>} al archivo \texttt{reporte\_cov.txt}.
+- Finalmente, \texttt{cat reporte\_cov.txt} muestra el contenido del reporte en pantalla.
+
+\textbf{Justificación del encadenamiento:}
+Se decidió agrupar los comandos dentro de llaves porque el objetivo era generar un reporte completo en un solo paso: primero el encabezado y luego el conteo. Al encadenarlos, se asegura que el archivo \texttt{reporte\_cov.txt} quede listo con toda la información sin necesidad de editarlo manualmente después. Además, añadir \texttt{cat} al final permite verificar inmediatamente el resultado.
+
+\textbf{Resultado obtenido (Figura 3):}
+\begin{verbatim}
+La cantidad de muestras de covid en Diciembre es:
+499
+\end{verbatim}
+
+\section{Distribución de muestras por género}
+
+En este paso se trabajó nuevamente con el archivo \texttt{metadata\_cov.tsv}, pero ahora para obtener la información sobre el género de las muestras.
+Se utilizó un bloque de comandos encadenados que primero extrae la columna de género y luego genera un reporte con los conteos:
+
+\begin{minted}[fontsize=\small, frame=single, linenos]{bash}
+cut -f8 metadata_cov.tsv > reporte_gen.txt ; \
+{ echo "La cantidad de muestras por género son:" ; \
+  tail -n +2 reporte_gen.txt | sort | uniq -c ; } > Generos_cov.txt ; \
+cat Generos_cov.txt
+\end{minted}
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=1\textwidth]{figuras/figura4_generos.png}
+    \caption{Ejemplo con múltiples opciones.png}
+    \label{fig:figura4}
+\end{figure}
+
+
+\textbf{Explicación paso a paso:}
+- \texttt{cut -f8 metadata\_cov.tsv > reporte\_gen.txt} $\rightarrow$ extrae la octava columna del archivo original y la guarda en un archivo intermedio.
+- Dentro de las llaves \texttt{\{ ... \}} se ejecutan dos acciones:
+  - \texttt{echo "La cantidad de muestras por género son:"} $\rightarrow$ añade un encabezado descriptivo.
+  - \texttt{tail -n +2 reporte\_gen.txt | sort | uniq -c} $\rightarrow$ elimina la cabecera, ordena los valores y cuenta cuántas veces aparece cada categoría (Female, Male, unknown).
+- Todo este bloque se redirige al archivo \texttt{Generos\_cov.txt}.
+- Finalmente, \texttt{cat Generos\_cov.txt} muestra el resultado en pantalla.
+
+\textbf{Justificación del encadenamiento:}
+Se decidió encadenar los comandos porque el objetivo era obtener un reporte completo en un solo paso: primero extraer la columna, luego procesar los datos y finalmente visualizar el resultado. Esto evita tener que abrir y editar archivos manualmente, y asegura que el flujo de trabajo sea reproducible.
+
+\textbf{Elección de comandos:}
+- \texttt{cut} es la herramienta más directa para extraer columnas específicas de archivos tabulados.
+- \texttt{tail -n +2} elimina la primera línea (cabecera), lo que evita que se mezcle con los datos reales.
+- \texttt{sort | uniq -c} permite agrupar y contar las categorías de manera sencilla.
+- \texttt{cat} se usa para verificar inmediatamente el contenido del archivo generado.
+
+\textbf{Resultado obtenido (Figura 4):}
+\begin{verbatim}
+La cantidad de muestras por género son:
+  231 Female
+  161 Male
+  107 unknown
+\end{verbatim}
+
+\section{Organización de archivos en carpetas correspondientes}
+
+Una vez generados los reportes, el siguiente paso fue organizar los archivos dentro de la estructura del proyecto.
+Para ello se movieron los archivos hacia las carpetas \texttt{data/raw} y \texttt{data/processed}, según su tipo:
+
+\begin{minted}[fontsize=\small, frame=single, linenos]{bash}
+mv -v metadata_cov.tsv ~/Robles_PhageOmics_2026_Science/data/raw/ ; \
+mv -v Generos_cov.txt ~/Robles_PhageOmics_2026_Science/data/processed/
+\end{minted}
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=1\textwidth]{figuras/figura5_raw_data.png}
+    \caption{Movimiento de archivos a carpetas corrspondientes}
+    \label{fig:figura5}
+\end{figure}
+
+\textbf{Explicación paso a paso:}
+- \texttt{mv -v metadata\_cov.tsv ~/Robles\_PhageOmics\_2026\_Science/data/raw/} $\rightarrow$ mueve el archivo original de metadatos a la carpeta de datos crudos (\texttt{raw}).
+- \texttt{mv -v Generos\_cov.txt ~/Robles\_PhageOmics\_2026\_Science/data/processed/} $\rightarrow$ mueve el archivo procesado con el conteo por género a la carpeta de datos procesados.
+
+\textbf{Justificación del encadenamiento:}
+Se decidió encadenar los movimientos porque ambos archivos debían ser reubicados en un mismo flujo de trabajo. De esta manera, en una sola línea se asegura que los datos queden organizados correctamente sin necesidad de ejecutar comandos separados.
+
+\textbf{Elección de comandos:}
+- \texttt{mv} es el comando más directo para mover archivos entre directorios.
+- La opción \texttt{-v} (verbose) muestra un mensaje de confirmación, lo que permite verificar que la acción se realizó correctamente.
+- Usar rutas completas con la virgulilla (\texttt{\~}) garantiza que los archivos se ubiquen en el proyecto dentro del directorio personal del usuario.
+
+\textbf{Resultado obtenido (Figura 5):}
+Los archivos quedaron organizados en las carpetas correspondientes:
+- \texttt{metadata\_cov.tsv} en \texttt{data/raw/}
+- \texttt{Generos\_cov.txt} en \texttt{data/processed/}
+
+\section{Estructura final del proyecto}
+
+Para verificar que todos los archivos quedaron correctamente organizados en sus carpetas, se utilizó el comando \texttt{tree} sobre el directorio principal del proyecto.
+De esta forma se obtiene una vista jerárquica de la estructura completa:
+
+\begin{minted}[fontsize=\small, frame=single, linenos]{bash}
+tree ~/Robles_PhageOmics_2026_Science/
+\end{minted}
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=1\textwidth]{figuras/figura6_tree_final.png}
+    \caption{Estructura final de directorios}
+    \label{fig:figura6}
+\end{figure}
+
+
+\textbf{Explicación:}
+El comando \texttt{tree} recorre de manera recursiva el directorio indicado y muestra su contenido en forma de árbol. Esto permite visualizar tanto las carpetas como los archivos, y comprobar que cada elemento está en el lugar correcto.
+
+\textbf{Justificación de la elección:}
+Se eligió \texttt{tree} porque es una herramienta muy clara para representar la organización de un proyecto. A diferencia de \texttt{ls}, que solo lista archivos, \texttt{tree} muestra la jerarquía completa, lo que facilita verificar la ubicación de los archivos movidos y la coherencia de la estructura.
+
+
+
+\section{Bibliografía}
+%\nocite{*}
+%\printbibliography[heading=none]
+
+%\newpage
+\section*{Anexos}
+
+\end{document}

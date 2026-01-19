@@ -1,0 +1,349 @@
+% Clase de Documento
+\documentclass[
+a4paper,
+12pt
+]
+{article}
+
+% Paquete básico para idioma y codificación
+\usepackage{fontspec}
+\usepackage[spanish, es-tabla]{babel}
+    \babelprovide[import, main]{spanish}
+    %\babeltags{es=spanish}
+\usepackage{csquotes}
+\usepackage{unicode-math}
+
+% Tipografía y microajuste
+\usepackage[babel]{microtype}
+\usepackage{libertinus-otf} %contine todos los tipos de letra libertinus
+\renewcommand{\familydefault}{\sfdefault} % fuerza sans serif como fuente principal
+
+% Diseño de página y márgenes
+\usepackage{geometry}
+    \geometry{
+    top=2.5cm,
+    bottom=2.5cm,
+    left=2.5cm,
+    right=2.5cm
+    }
+
+% Espaciado y Sangrías
+\usepackage{parskip}
+
+\usepackage{setspace}
+    \singlespacing
+    %\onehalfspacing
+    %\doublespacing
+    %\setstretch{1.25}
+
+% Paquete de colores
+\usepackage[dvipsnames, x11names]{xcolor}
+    \definecolor{AMCblue}{cmyk}{0.8, 0.45, 0, 0.6}
+    \definecolor{AMCgold}{cmyk}{0, 0.15, 0.5, 0.4}
+    \definecolor{AMCgreen}{cmyk}{0.6, 0, 0.7, 0.6}
+    \definecolor{AMCbluelight}{cmyk}{0.7, 0.3, 0, 0.4}
+    \definecolor{DarkTeal}{cmyk}{0.9, 0.5, 0.3, 0.6}
+    \definecolor{LightGray}{cmyk}{0.01,0,0,0.04}
+
+% Paquete para insertar PDFs
+\usepackage{pdfpages}
+
+%Imágenes y gráficos
+\usepackage{graphicx}
+\usepackage{float}         % Requerido para [H]
+\usepackage{wrapfig}       % Requerido para R/L en wrapfigure
+%\usepackage{subcaption}  % para crear subfiguras
+\usepackage{caption}        % Opciones avanzadas para captions
+
+% Estilo profesional de caption, fig y tablas
+\captionsetup{
+    font=footnotesize,          % Tamaño de letra de la leyenda
+    labelfont={bf,small},       % Negrita para "Figura" o "Tabla", tamaño pequeño
+    labelsep=colon,             % Separador entre "Figura 1" y el título (:)
+    justification=justified,    % Alineación justificada (puede ser raggedright, centering, etc.)
+    singlelinecheck=false,      % Justifica también leyendas de una sola línea
+    skip=8pt,                   % Espacio vertical entre la figura y la leyenda
+    width=0.9\textwidth         % Ancho máximo de la leyenda
+}
+
+% Encabezados y Pie de páginas
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{} % limpia encabezados y pies
+
+\setlength{\headheight}{24pt}
+\renewcommand{\headrulewidth}{0pt} % opcional: elimina la línea superior
+
+% Solo número de página en el pie izquierdo
+\fancyfoot[R]{\thepage}
+
+% Personalización de títulos
+
+\usepackage{titlesec}
+
+    % definir formato de títulos de sección
+    \titleformat{\section}
+    {
+    \color{AMCblue}
+    \Large\bfseries
+    }
+    {\thesection.}
+    {1em}
+    {}
+
+    % definir formato de títulos de subsección
+     \titleformat{\subsection}
+    {
+    \color{AMCbluelight}
+    \large\bfseries
+    }
+    {\thesubsection.}
+    {1em}
+    {}
+%  Hipervinculos y referencias internas o referencias cruzadas
+\usepackage[hidelinks]{hyperref}
+
+% --- Fondo para todas las páginas excepto la primera ---
+\newif\ifportada
+\portadatrue % al inicio estamos en la portada
+
+\usepackage{tikzpagenodes}
+
+\AddToHook{shipout/background}{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \ifportada
+      \node at (current page.center)
+      {\includegraphics[width=\paperwidth,height=\paperheight]{backgrounds/UISEK-portada.pdf}};
+    \else
+      \node at (current page.center)
+      {\includegraphics[width=\paperwidth,height=\paperheight]{backgrounds/UISEK-plantilla.pdf}};
+    \fi
+  \end{tikzpicture}
+}
+
+\usepackage{booktabs}
+
+%Resaltado de código
+\usepackage{minted}
+\usemintedstyle{vim} % o 'colorful', 'monokai', 'borland', etc.
+
+\setminted{
+  frame=lines,
+  framesep=2mm,
+  baselinestretch=1.2,
+  bgcolor=LightGray,
+  fontsize=\small,
+  breaklines=true,
+  breakanywhere=true
+}
+
+%Bibliografía
+
+%Bibliografía con Normas APA
+%    \usepackage[backend=biber, style=apa]{biblatex}
+%    \DeclareLanguageMapping{english}{english-apa} %\addbibresource{referencias.bib}
+% útil para compactar las referencias
+%{biblatex}
+%    \setlength\bibitemsep{1.5ex}
+%    \renewcommand*{\bibfont}{\small}
+
+\begin{document}
+% --- Portada sin número ---
+\thispagestyle{empty}
+
+% ---- aquí tu contenido de portada ----
+\vspace*{9cm}
+\begin{center}
+{\fontsize{18}{22}\selectfont
+\textbf{Maestría en Bioinformática} \\
+\textbf{Principios y Lógica de Programación} \\
+\textbf{Docente: Ing. María Gabriela Echeverría}
+}
+
+\vspace{3cm}
+
+{\fontsize{24}{28}\selectfont \textcolor{AMCblue}{\textbf{Tarea 6: Análisis bioinformático del gen KRAS}}}
+\vspace*{3cm} % 3 cm más abajo
+
+{\fontsize{20}{24}\selectfont \textbf{Estudiante: Christian Robles}}
+
+\vspace*{3cm} % 2 cm más abajo
+{\fontsize{12}{14}\selectfont Fecha de entrega: 18 de Diciembre de 2025}
+\end{center}
+
+\newpage
+
+% <<< DESPUÉS de pasar la portada apagamos la bandera >>>
+\portadafalse
+\setcounter{page}{1} % reiniciamos el contador de páginas
+
+\section{Creación del directorio de trabajo y movimiento del archivo FASTA}
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=1\textwidth]{figuras/figura1_mv_fasta.png}
+    \caption{Figura 1. Creación de directorios y movimiento de archivos}
+    \label{fig:figura1}
+\end{figure}
+
+El primer paso de la Actividad 3 consistió en crear un nuevo directorio dentro de \texttt{analysis} llamado \texttt{actividad3}, mover el archivo \texttt{secuencias\_cov.fasta} desde la carpeta de descargas hacia este nuevo espacio de trabajo y verificar su presencia con \texttt{ls}.
+Todo esto se realizó en una secuencia de comandos:
+
+\begin{minted}{bash}
+mkdir -v actividad3 ; cd actividad3 ; \
+mv -v ~/Descargas/secuencias_cov.fasta . ; ls
+\end{minted}
+
+\textbf{Explicación paso a paso:}
+- \texttt{mkdir -v actividad3} $\rightarrow$ crea el directorio \texttt{actividad3} y muestra un mensaje confirmando la acción.
+- \texttt{cd actividad3} $\rightarrow$ nos mueve dentro del nuevo directorio para trabajar directamente allí.
+- \texttt{mv -v \~/Descargas/secuencias\_cov.fasta .} $\rightarrow$ mueve el archivo desde la carpeta de descargas al directorio actual (\texttt{.}), mostrando un mensaje de confirmación gracias a la opción \texttt{-v}.
+- \texttt{ls} $\rightarrow$ lista el contenido del directorio, confirmando que el archivo se encuentra en la ubicación correcta.
+
+\textbf{Justificación del encadenamiento:}
+Se decidió encadenar los comandos porque el objetivo era realizar de manera continua la creación del directorio, el acceso a él y el movimiento del archivo. Esto evita tener que escribir cada comando por separado y asegura que el flujo de trabajo sea más eficiente y reproducible.
+
+\textbf{Uso de la virgulilla (\texttt{\~}):}
+La virgulilla representa el directorio personal del usuario (\texttt{/home/usuario}). En este caso, \texttt{\~/Descargas} apunta directamente a la carpeta de descargas dentro del home, lo que hace que el comando sea más corto y portable.
+
+\textbf{Resultado obtenido (Figura 1):}
+El archivo \texttt{secuencias\_cov.fasta} quedó correctamente ubicado dentro de \texttt{analysis/actividad3}.
+
+\section{Extracción de fechas de colecta}
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=1\textwidth]{figuras/figura2_fecha_de_colexta.png}
+    \caption{Figura 2. Extracción de fechas de colecta mediante los comandos grep, cut y tr}
+    \label{fig:figura2}
+\end{figure}
+
+El siguiente paso fue procesar el archivo \texttt{secuencias\_cov.fasta} para obtener un archivo tabulado con los identificadores de secuencia y las fechas de colecta.
+Esto se logró mediante un encadenamiento de comandos que filtran, cortan y transforman el contenido:
+
+\begin{minted}[fontsize=\small, frame=single, linenos]{bash}
+grep "^>" secuencias_cov.fasta | cut -d"|" -f2,3 | tr '|' '\t' > fecha_de_colecta.tsv ; \
+head -n 15 fecha_de_colecta.tsv | nl -ba
+\end{minted}
+
+\textbf{Explicación paso a paso:}
+- \verb|grep "^>"| $\rightarrow$ selecciona únicamente las líneas del archivo FASTA que corresponden a encabezados de secuencia (empiezan con el símbolo \texttt{>}).
+
+- \texttt{cut -d"|" -f2,3} $\rightarrow$ divide cada línea usando el carácter \texttt{|} como delimitador y extrae los campos 2 y 3 (ID y fecha de colecta).
+- \texttt{tr '|' '\t'} $\rightarrow$ reemplaza el delimitador \texttt{|} por tabulaciones, generando un archivo \texttt{.tsv} más limpio.
+- \texttt{> fecha\_de\_colecta.tsv} $\rightarrow$ guarda el resultado en un nuevo archivo.
+- \texttt{head -n 15 fecha\_de\_colecta.tsv | nl -ba} $\rightarrow$ muestra las primeras 15 líneas del archivo y las numera, incluyendo posibles líneas en blanco.
+
+\textbf{Justificación del encadenamiento:}
+Se decidió encadenar los comandos porque el objetivo era transformar el archivo FASTA en un formato tabulado y verificar inmediatamente el resultado. De esta manera, en una sola línea se obtiene el archivo \texttt{fecha\_de\_colecta.tsv} y se revisan sus primeras entradas, lo que asegura eficiencia y reproducibilidad.
+
+\textbf{Resultado obtenido (Figura 2):}
+\begin{verbatim}
+     1  EPI_ISL_20270803   2025-12-01
+     2  EPI_ISL_20270806   2025-12-02
+     3  EPI_ISL_20270807   2025-12-02
+     4  EPI_ISL_20276611   2025-12-01
+     5  EPI_ISL_20276614   2025-12-05
+     6  EPI_ISL_20276616   2025-12-06
+     7  EPI_ISL_20276618   2025-12-08
+     8  EPI_ISL_20279728   2025-12-03
+     9  EPI_ISL_20283220   2025-12-02
+    10  EPI_ISL_20283222   2025-12-02
+    11  EPI_ISL_20283226   2025-12-03
+    12  EPI_ISL_20283230   2025-12-04
+    13  EPI_ISL_20283240   2025-12-05
+    14  EPI_ISL_20283245   2025-12-04
+    15  EPI_ISL_20283246   2025-12-07
+\end{verbatim}
+
+\section{Organización del archivo FASTA en carpeta raw}
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=1\textwidth]{figuras/figura3_mv_tree.png}
+    \caption{Figura 3. movimiento de archivos procesados a raw y verificacion de estructura del proyecto con el comando tree.}
+    \label{fig:figura3}
+\end{figure}
+
+Una vez generado el archivo \texttt{fecha\_de\_colecta.tsv}, el siguiente paso fue organizar los datos crudos del proyecto.
+Para ello se movió el archivo \texttt{secuencias\_cov.fasta} desde el directorio de análisis hacia la carpeta \texttt{data/raw}, que está destinada a almacenar los datos originales sin procesar:
+
+\begin{minted}[fontsize=\small, frame=single, linenos]{bash}
+mv -v secuencias_cov.fasta ~/Robles_PhageOmics_2026_Science/data/raw/
+\end{minted}
+
+\textbf{Explicación paso a paso:}
+- \texttt{mv -v secuencias\_cov.fasta ~/Robles\_PhageOmics\_2026\_Science/data/raw/} $\rightarrow$ mueve el archivo FASTA desde el directorio actual (\texttt{analysis/actividad3}) hacia la carpeta de datos crudos.
+- La opción \texttt{-v} (verbose) muestra un mensaje de confirmación, lo que permite verificar que la acción se realizó correctamente.
+
+\textbf{Justificación:}
+Se decidió mover el archivo FASTA a la carpeta \texttt{raw} porque este archivo corresponde a datos originales que aún no han sido procesados. Mantener esta separación entre datos crudos y procesados es fundamental para la reproducibilidad y claridad del proyecto, evitando confusiones entre archivos de entrada y resultados derivados.
+
+\textbf{Resultado obtenido (Figura 3):}
+El archivo \texttt{secuencias\_cov.fasta} quedó correctamente ubicado en la carpeta \texttt{data/raw}, mientras que el archivo \texttt{fecha\_de\_colecta.tsv} permanece en \texttt{analysis/actividad3}.
+
+\section{Organización del archivo FASTA en carpeta raw}
+
+Una vez generado el archivo \texttt{fecha\_de\_colecta.tsv}, el siguiente paso fue organizar los datos crudos del proyecto.
+Para ello se movió el archivo \texttt{secuencias\_cov.fasta} desde el directorio de análisis hacia la carpeta \texttt{data/raw}, que está destinada a almacenar los datos originales sin procesar:
+
+\begin{minted}[fontsize=\small, frame=single, linenos]{bash}
+mv -v secuencias_cov.fasta ~/Robles_PhageOmics_2026_Science/data/raw/
+\end{minted}
+
+\textbf{Explicación paso a paso:}
+- \texttt{mv -v secuencias\_cov.fasta ~/Robles\_PhageOmics\_2026\_Science/data/raw/} $\rightarrow$ mueve el archivo FASTA desde el directorio actual (\texttt{analysis/actividad3}) hacia la carpeta de datos crudos.
+- La opción \texttt{-v} (verbose) muestra un mensaje de confirmación, lo que permite verificar que la acción se realizó correctamente.
+
+\textbf{Justificación:}
+Se decidió mover el archivo FASTA a la carpeta \texttt{raw} porque este archivo corresponde a datos originales que aún no han sido procesados. Mantener esta separación entre datos crudos y procesados es fundamental para la reproducibilidad y claridad del proyecto, evitando confusiones entre archivos de entrada y resultados derivados.
+
+\textbf{Resultado obtenido (Figura 3):}
+El archivo \texttt{secuencias\_cov.fasta} quedó correctamente ubicado en la carpeta \texttt{data/raw}, mientras que el archivo \texttt{fecha\_de\_colecta.tsv} permanece en \texttt{analysis/actividad3}.
+
+\section{Verificación de la estructura final del proyecto}
+
+Finalmente, para comprobar que los archivos quedaron correctamente organizados en sus respectivas carpetas, se utilizó el comando \texttt{tree} sobre el directorio principal del proyecto:
+
+\begin{minted}[fontsize=\small, frame=single, linenos]{bash}
+tree ~/Robles_PhageOmics_2026_Science/
+\end{minted}
+
+\textbf{Explicación:}
+El comando \texttt{tree} recorre de manera recursiva el directorio indicado y muestra su contenido en forma de árbol. Esto permite visualizar tanto las carpetas como los archivos, y verificar que cada elemento se encuentra en la ubicación correcta.
+
+\textbf{Justificación:}
+Se eligió \texttt{tree} porque es una herramienta clara y eficiente para representar la organización de un proyecto. A diferencia de \texttt{ls}, que solo lista archivos, \texttt{tree} muestra la jerarquía completa, lo que facilita comprobar la ubicación de los archivos movidos y la coherencia de la estructura.
+
+\textbf{Resultado obtenido (Figura 4):}
+\begin{verbatim}
+/home/christian/Robles_PhageOmics_2026_Science/
+├── analysis
+│   ├── actividad2
+│   │   ├── EPIs_cov.tsv
+│   │   ├── reporte_cov.txt
+│   │   └── reporte_gen.txt
+│   └── actividad3
+│       └── fecha_de_colecta.tsv
+├── code
+├── data
+│   ├── processed
+│   │   └── Generos_cov.txt
+│   └── raw
+│       ├── metadata_cov.tsv
+│       └── secuencias_cov.fasta
+├── LICENSE
+├── README
+├── submission
+│   ├── version1
+│   └── version2
+└── tools
+\end{verbatim}
+
+\section{Bibliografía}
+%\nocite{*}
+%\printbibliography[heading=none]
+
+%\newpage
+\section*{Anexos}
+
+\end{document}

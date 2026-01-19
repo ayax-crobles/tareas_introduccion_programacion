@@ -1,0 +1,4 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+mv\PYG{+w}{ }\PYGZhy{}v\PYG{+w}{ }metadata\PYGZus{}cov.tsv\PYG{+w}{ }\PYGZti{}/Robles\PYGZus{}PhageOmics\PYGZus{}2026\PYGZus{}Science/data/raw/\PYG{+w}{ }\PYG{p}{;}\PYG{+w}{ }\PYG{l+s+se}{\PYGZbs{}}
+mv\PYG{+w}{ }\PYGZhy{}v\PYG{+w}{ }Generos\PYGZus{}cov.txt\PYG{+w}{ }\PYGZti{}/Robles\PYGZus{}PhageOmics\PYGZus{}2026\PYGZus{}Science/data/processed/
+\end{MintedVerbatim}

@@ -1,0 +1,4 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{o}{\PYGZob{}}\PYG{+w}{ }\PYG{n+nb}{echo}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}La cantidad de muestras de covid en Diciembre es:\PYGZdq{}}\PYG{+w}{ }\PYG{p}{;}\PYG{+w}{ }\PYG{l+s+se}{\PYGZbs{}}
+\PYG{+w}{  }tail\PYG{+w}{ }\PYGZhy{}n\PYG{+w}{ }+2\PYG{+w}{ }EPIs\PYGZus{}cov.tsv\PYG{+w}{ }\PYG{p}{|}\PYG{+w}{ }wc\PYG{+w}{ }\PYGZhy{}l\PYG{+w}{ }\PYG{p}{;}\PYG{+w}{ }\PYG{o}{\PYGZcb{}}\PYG{+w}{ }\PYGZgt{}\PYG{+w}{ }reporte\PYGZus{}cov.txt\PYG{+w}{ }\PYG{p}{;}\PYG{+w}{ }cat\PYG{+w}{ }reporte\PYGZus{}cov.txt
+\end{MintedVerbatim}

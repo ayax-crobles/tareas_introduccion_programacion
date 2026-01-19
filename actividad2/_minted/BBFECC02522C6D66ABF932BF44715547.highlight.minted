@@ -1,0 +1,3 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+cut\PYG{+w}{ }\PYGZhy{}f2\PYG{+w}{ }metadata\PYGZus{}cov.tsv\PYG{+w}{ }\PYGZgt{}\PYG{+w}{ }EPIs\PYGZus{}cov.tsv\PYG{+w}{ }\PYG{p}{;}\PYG{+w}{ }head\PYG{+w}{ }\PYGZhy{}n\PYG{+w}{ }\PYG{l+m}{25}\PYG{+w}{ }EPIs\PYGZus{}cov.tsv\PYG{+w}{ }\PYG{p}{|}\PYG{+w}{ }nl\PYG{+w}{ }\PYGZhy{}ba
+\end{MintedVerbatim}
