@@ -10,7 +10,6 @@ a4paper,
 \usepackage[spanish, es-tabla]{babel}
     \babelprovide[import, main]{spanish}
     %\babeltags{es=spanish}
-\usepackage{csquotes}
 \usepackage{unicode-math}
 
 % Tipografía y microajuste
@@ -102,7 +101,6 @@ a4paper,
     {}
 %  Hipervinculos y referencias internas o referencias cruzadas
 \usepackage[hidelinks]{hyperref}
-
 % --- Fondo para todas las páginas excepto la primera ---
 \newif\ifportada
 \portadatrue % al inicio estamos en la portada
@@ -128,14 +126,17 @@ a4paper,
 \usemintedstyle{vim} % o 'colorful', 'monokai', 'borland', etc.
 
 \setminted{
-  frame=lines,
-  framesep=2mm,
+  %frame=lines,
+  %framesep=2mm,
   baselinestretch=1.2,
   bgcolor=LightGray,
   fontsize=\small,
   breaklines=true,
   breakanywhere=true
 }
+
+
+\usepackage{csquotes} %cambiamos a este lugar cs quotes por si está antes de minted da problemas
 
 %Bibliografía
 
@@ -162,13 +163,13 @@ a4paper,
 
 \vspace{3cm}
 
-{\fontsize{24}{28}\selectfont \textcolor{AMCblue}{\textbf{Tarea 6: Análisis bioinformático del gen KRAS}}}
+{\fontsize{24}{28}\selectfont \textcolor{AMCblue}{\textbf{Actividad 3: Extracción de datos y ordenamiento de secuencias en arhivos multifasta}}}
 \vspace*{3cm} % 3 cm más abajo
 
 {\fontsize{20}{24}\selectfont \textbf{Estudiante: Christian Robles}}
 
 \vspace*{3cm} % 2 cm más abajo
-{\fontsize{12}{14}\selectfont Fecha de entrega: 18 de Diciembre de 2025}
+{\fontsize{12}{14}\selectfont Fecha de entrega: 20 de Enero de 2026}
 \end{center}
 
 \newpage
@@ -176,6 +177,10 @@ a4paper,
 % <<< DESPUÉS de pasar la portada apagamos la bandera >>>
 \portadafalse
 \setcounter{page}{1} % reiniciamos el contador de páginas
+
+\section{Introducción}
+\section*{Introducción}
+En esta tercera actividad trabajamos con el archivo \texttt{secuencias\_cov.fasta}, descargado desde el aula virtual, con el propósito de practicar la extracción de información en los encabezados de cada secuencia. A partir de estos datos se generan reportes organizados que incluyen el número de acceso (\texttt{Accession ID}) y la fecha de colecta, ordenados de manera sistemática. La tarea se realizó en \textbf{Debian 13 Trixie}, utilizando el entorno de escritorio \textbf{XFCE} y el gestor de archivos \textbf{Thunar}.
 
 \section{Creación del directorio de trabajo y movimiento del archivo FASTA}
 \begin{figure}[htb]
@@ -185,28 +190,24 @@ a4paper,
     \label{fig:figura1}
 \end{figure}
 
-El primer paso de la Actividad 3 consistió en crear un nuevo directorio dentro de \texttt{analysis} llamado \texttt{actividad3}, mover el archivo \texttt{secuencias\_cov.fasta} desde la carpeta de descargas hacia este nuevo espacio de trabajo y verificar su presencia con \texttt{ls}.
-Todo esto se realizó en una secuencia de comandos:
+El primer paso de la Actividad 3 consistió en crear un nuevo directorio dentro de \texttt{analysis} llamado \texttt{actividad3}, mover el archivo \texttt{secuencias\_cov.fasta} desde la carpeta de descargas hacia este nuevo directorio y verificar su presencia con \texttt{ls}.
+Todo esto se realizó con los comandos:
 
 \begin{minted}{bash}
-mkdir -v actividad3 ; cd actividad3 ; \
-mv -v ~/Descargas/secuencias_cov.fasta . ; ls
+mkdir -v actividad3
+cd actividad3
+mv -v ~/Descargas/secuencias_cov.fasta .
+ls
 \end{minted}
 
-\textbf{Explicación paso a paso:}
-- \texttt{mkdir -v actividad3} $\rightarrow$ crea el directorio \texttt{actividad3} y muestra un mensaje confirmando la acción.
-- \texttt{cd actividad3} $\rightarrow$ nos mueve dentro del nuevo directorio para trabajar directamente allí.
-- \texttt{mv -v \~/Descargas/secuencias\_cov.fasta .} $\rightarrow$ mueve el archivo desde la carpeta de descargas al directorio actual (\texttt{.}), mostrando un mensaje de confirmación gracias a la opción \texttt{-v}.
-- \texttt{ls} $\rightarrow$ lista el contenido del directorio, confirmando que el archivo se encuentra en la ubicación correcta.
-
-\textbf{Justificación del encadenamiento:}
-Se decidió encadenar los comandos porque el objetivo era realizar de manera continua la creación del directorio, el acceso a él y el movimiento del archivo. Esto evita tener que escribir cada comando por separado y asegura que el flujo de trabajo sea más eficiente y reproducible.
-
-\textbf{Uso de la virgulilla (\texttt{\~}):}
-La virgulilla representa el directorio personal del usuario (\texttt{/home/usuario}). En este caso, \texttt{\~/Descargas} apunta directamente a la carpeta de descargas dentro del home, lo que hace que el comando sea más corto y portable.
-
-\textbf{Resultado obtenido (Figura 1):}
-El archivo \texttt{secuencias\_cov.fasta} quedó correctamente ubicado dentro de \texttt{analysis/actividad3}.
+\textbf{Uso de los comandos:}
+\begin{itemize}
+  \item \texttt{mkdir -v actividad3} $\rightarrow$ crea el directorio \texttt{actividad3} y muestra un mensaje confirmando la acción.
+  \item \texttt{cd actividad3} $\rightarrow$ nos mueve dentro del nuevo directorio para trabajar directamente allí.
+  \item \texttt{mv -v \~/Descargas/secuencias\_cov.fasta .} $\rightarrow$ mueve el archivo desde la carpeta de descargas al directorio actual (\texttt{.}), mostrando un mensaje de lo realizado gracias a la opción \texttt{-v}.
+  \item \texttt{ls} $\rightarrow$ lista el contenido del directorio, confirmando que el archivo se encuentra en la ubicación correcta.
+  \item El archivo \texttt{secuencias\_cov.fasta} quedó correctamente ubicado dentro de \texttt{analysis/actividad3}.
+\end{itemize}
 
 \section{Extracción de fechas de colecta}
 
@@ -217,11 +218,12 @@ El archivo \texttt{secuencias\_cov.fasta} quedó correctamente ubicado dentro de
     \label{fig:figura2}
 \end{figure}
 
-El siguiente paso fue procesar el archivo \texttt{secuencias\_cov.fasta} para obtener un archivo tabulado con los identificadores de secuencia y las fechas de colecta.
+El siguiente paso fue procesar el archivo \texttt{secuencias\_cov.fasta} para obtener un archivo tabulado (para mejorar la visibilidad de los datos desde la terminal) con los identificadores de secuencia y las fechas de colecta.
 Esto se logró mediante un encadenamiento de comandos que filtran, cortan y transforman el contenido:
 
-\begin{minted}[fontsize=\small, frame=single, linenos]{bash}
-grep "^>" secuencias_cov.fasta | cut -d"|" -f2,3 | tr '|' '\t' > fecha_de_colecta.tsv ; \
+\begin{minted}{bash}
+grep "^>" secuencias_cov.fasta | cut -d"|" -f2,3 | tr '|' '\t' > fecha_de_colecta.tsv
+
 head -n 15 fecha_de_colecta.tsv | nl -ba
 \end{minted}
 
@@ -314,30 +316,7 @@ El comando \texttt{tree} recorre de manera recursiva el directorio indicado y mu
 \textbf{Justificación:}
 Se eligió \texttt{tree} porque es una herramienta clara y eficiente para representar la organización de un proyecto. A diferencia de \texttt{ls}, que solo lista archivos, \texttt{tree} muestra la jerarquía completa, lo que facilita comprobar la ubicación de los archivos movidos y la coherencia de la estructura.
 
-\textbf{Resultado obtenido (Figura 4):}
-\begin{verbatim}
-/home/christian/Robles_PhageOmics_2026_Science/
-├── analysis
-│   ├── actividad2
-│   │   ├── EPIs_cov.tsv
-│   │   ├── reporte_cov.txt
-│   │   └── reporte_gen.txt
-│   └── actividad3
-│       └── fecha_de_colecta.tsv
-├── code
-├── data
-│   ├── processed
-│   │   └── Generos_cov.txt
-│   └── raw
-│       ├── metadata_cov.tsv
-│       └── secuencias_cov.fasta
-├── LICENSE
-├── README
-├── submission
-│   ├── version1
-│   └── version2
-└── tools
-\end{verbatim}
+
 
 \section{Bibliografía}
 %\nocite{*}

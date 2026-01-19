@@ -1,0 +1,6 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+cut\PYG{+w}{ }\PYGZhy{}f8\PYG{+w}{ }metadata\PYGZus{}cov.tsv\PYG{+w}{ }\PYGZgt{}\PYG{+w}{ }reporte\PYGZus{}gen.txt
+\PYG{o}{\PYGZob{}}\PYG{+w}{ }\PYG{n+nb}{echo}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}La cantidad de muestras por género son:\PYGZdq{}}\PYG{+w}{ }\PYG{p}{;}
+tail\PYG{+w}{ }\PYGZhy{}n\PYG{+w}{ }+2\PYG{+w}{ }reporte\PYGZus{}gen.txt\PYG{+w}{ }\PYG{p}{|}\PYG{+w}{ }sort\PYG{+w}{ }\PYG{p}{|}\PYG{+w}{ }uniq\PYG{+w}{ }\PYGZhy{}c\PYG{+w}{ }\PYG{p}{;}\PYG{+w}{ }\PYG{o}{\PYGZcb{}}\PYG{+w}{ }\PYGZgt{}\PYG{+w}{ }Generos\PYGZus{}cov.txt
+cat\PYG{+w}{ }Generos\PYGZus{}cov.txt
+\end{MintedVerbatim}

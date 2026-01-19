@@ -1,0 +1,5 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+grep\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}\PYGZca{}\PYGZgt{}\PYGZdq{}}\PYG{+w}{ }secuencias\PYGZus{}cov.fasta\PYG{+w}{ }\PYG{p}{|}\PYG{+w}{ }cut\PYG{+w}{ }\PYGZhy{}d\PYG{l+s+s2}{\PYGZdq{}|\PYGZdq{}}\PYG{+w}{ }\PYGZhy{}f2,3\PYG{+w}{ }\PYG{p}{|}\PYG{+w}{ }tr\PYG{+w}{ }\PYG{l+s+s1}{\PYGZsq{}|\PYGZsq{}}\PYG{+w}{ }\PYG{l+s+s1}{\PYGZsq{}\PYGZbs{}t\PYGZsq{}}\PYG{+w}{ }\PYGZgt{}\PYG{+w}{ }fecha\PYGZus{}de\PYGZus{}colecta.tsv
+
+head\PYG{+w}{ }\PYGZhy{}n\PYG{+w}{ }\PYG{l+m}{15}\PYG{+w}{ }fecha\PYGZus{}de\PYGZus{}colecta.tsv\PYG{+w}{ }\PYG{p}{|}\PYG{+w}{ }nl\PYG{+w}{ }\PYGZhy{}ba
+\end{MintedVerbatim}

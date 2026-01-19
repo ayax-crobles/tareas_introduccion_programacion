@@ -101,7 +101,6 @@ a4paper,
     {}
 %  Hipervinculos y referencias internas o referencias cruzadas
 \usepackage[hidelinks]{hyperref}
-\usepackage{cleveref}
 % --- Fondo para todas las páginas excepto la primera ---
 \newif\ifportada
 \portadatrue % al inicio estamos en la portada
@@ -137,7 +136,8 @@ a4paper,
 }
 
 
-\usepackage{csquotes}
+\usepackage{csquotes} %cambiamos a este lugar cs quotes por si está antes de minted da problemas
+
 %Bibliografía
 
 %Bibliografía con Normas APA

@@ -1,0 +1,5 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+mkdir\PYG{+w}{ }actividad2
+\PYG{n+nb}{cd}\PYG{+w}{ }actividad2
+mv\PYG{+w}{ }\PYGZhy{}v\PYG{+w}{ }\PYGZti{}/Descargas/metadata\PYGZus{}cov.tsv\PYG{+w}{ }.
+\end{MintedVerbatim}
