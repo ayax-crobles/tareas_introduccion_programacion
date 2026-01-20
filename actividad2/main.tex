@@ -178,8 +178,7 @@ a4paper,
 % <<< DESPUÉS de pasar la portada apagamos la bandera >>>
 \portadafalse
 \setcounter{page}{1} % reiniciamos el contador de páginas
-\section{Organización y procesamiento de datos}
-\section*{Introducción}
+\section{Introducción}
 En esta segunda actividad trabajamos con el archivo \texttt{metadata\_cov.tsv}, descargado desde el aula virtual, con el objetivo principal de practicar la extracción de información relevante y la generación de reportes. La tarea se realizó en \textbf{Debian 13 Trixie}, utilizando el entorno de escritorio \textbf{XFCE}, \textbf{xfce4-terminal} y el gestor de archivos \textbf{Thunar}.
 
 \section{Creación del directorio de trabajo y movimiento del archivo inicial}
@@ -235,7 +234,7 @@ head -n 25 EPIs_cov.tsv | nl -ba
   \item \texttt{head -n 25 EPIs\_cov.tsv | nl -ba} $\rightarrow$ muestra las primeras 25 líneas del archivo generado y las pasa por un pipe o tubería \texttt{(|)} hacia el comando \texttt{nl -ba} que numera todas las líneas, incluyendo las líneas en blanco si las hubiera, para facilitar la visualización.
 \end{itemize}
 
-\vspace{2cm}
+%\vspace{2cm}
 \textbf{Comandos \texttt{cut} y \texttt{head}:}
 \begin{itemize}
   \item \texttt{cut} es ideal para extraer columnas específicas de archivos delimitados por tabulaciones, como los \texttt{.tsv}.
@@ -290,7 +289,7 @@ cat Generos_cov.txt
     \label{fig:figura4}
 \end{figure}
 
-\vspace{2cm}
+%\vspace{2cm}
 \textbf{Comandos utilizados:}
 \begin{itemize}
   \item \texttt{cut -f8 metadata\_cov.tsv > reporte\_gen.txt} $\rightarrow$ extrae la octava columna del archivo original y la guarda en un archivo intermedio.
