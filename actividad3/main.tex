@@ -1,9 +1,12 @@
 % Clase de Documento
 \documentclass[
 a4paper,
-12pt
+12pt,
+%draft % para no renderizar imágenes hasta que todo esté correcto
 ]
 {article}
+
+%\special{pdf:minorversion=7}
 
 % Paquete básico para idioma y codificación
 \usepackage{fontspec}
@@ -14,8 +17,10 @@ a4paper,
 
 % Tipografía y microajuste
 \usepackage[babel]{microtype}
-\usepackage{libertinus-otf} %contine todos los tipos de letra libertinus
+%\usepackage{libertinus-otf} %contine todos los tipos de letra libertinus
+\setsansfont{Libertinus Sans} %En este caso como no va a ser impreso vamos a usar sans
 \renewcommand{\familydefault}{\sfdefault} % fuerza sans serif como fuente principal
+\setmonofont{Libertinus Mono}
 
 % Diseño de página y márgenes
 \usepackage{geometry}
@@ -141,8 +146,10 @@ a4paper,
 %Bibliografía
 
 %Bibliografía con Normas APA
-%    \usepackage[backend=biber, style=apa]{biblatex}
-%    \DeclareLanguageMapping{english}{english-apa} %\addbibresource{referencias.bib}
+\usepackage[backend=biber, style=apa]{biblatex}
+\DeclareLanguageMapping{english}{english-apa}
+\addbibresource{referencias.bib}
+
 % útil para compactar las referencias
 %{biblatex}
 %    \setlength\bibitemsep{1.5ex}
@@ -179,8 +186,8 @@ a4paper,
 \setcounter{page}{1} % reiniciamos el contador de páginas
 
 \section{Introducción}
-\section*{Introducción}
-En esta tercera actividad trabajamos con el archivo \texttt{secuencias\_cov.fasta}, descargado desde el aula virtual, con el propósito de practicar la extracción de información en los encabezados de cada secuencia. A partir de estos datos se generan reportes organizados que incluyen el número de acceso (\texttt{Accession ID}) y la fecha de colecta, ordenados de manera sistemática. La tarea se realizó en \textbf{Debian 13 Trixie}, utilizando el entorno de escritorio \textbf{XFCE} y el gestor de archivos \textbf{Thunar}.
+
+En esta tercera actividad trabajamos con el archivo \texttt{secuencias\_cov.fasta}, descargado desde el aula virtual, con el propósito de practicar la extracción de información en los encabezados de cada secuencia. A partir de estos datos se generan reportes organizados que incluyen el número de acceso (\texttt{Accession ID}) y la fecha de colecta, ordenados de manera sistemática. La tarea se realizó en \textbf{Debian 13 Trixie}, utilizando el entorno de escritorio \textbf{XFCE}, \textbf{xfce4-terminal} y el gestor de archivos \textbf{Thunar}.
 
 \section{Creación del directorio de trabajo y movimiento del archivo FASTA}
 \begin{figure}[htb]
@@ -200,12 +207,12 @@ mv -v ~/Descargas/secuencias_cov.fasta .
 ls
 \end{minted}
 
-\textbf{Uso de los comandos:}
+\textbf{Comandos utilizados:}
 \begin{itemize}
-  \item \texttt{mkdir -v actividad3} $\rightarrow$ crea el directorio \texttt{actividad3} y muestra un mensaje confirmando la acción.
+  \item \texttt{mkdir -v actividad3} $\rightarrow$ crea el directorio \texttt{actividad3} y muestra un mensaje de confirmación.
   \item \texttt{cd actividad3} $\rightarrow$ nos mueve dentro del nuevo directorio para trabajar directamente allí.
-  \item \texttt{mv -v \~/Descargas/secuencias\_cov.fasta .} $\rightarrow$ mueve el archivo desde la carpeta de descargas al directorio actual (\texttt{.}), mostrando un mensaje de lo realizado gracias a la opción \texttt{-v}.
-  \item \texttt{ls} $\rightarrow$ lista el contenido del directorio, confirmando que el archivo se encuentra en la ubicación correcta.
+  \item \texttt{mv -v \~/Descargas/secuencias\_cov.fasta .} $\rightarrow$ mueve el archivo desde la carpeta de descargas al directorio actual (\texttt{.}), mostrando un mensaje de lo realizado gracias a la opción \texttt{-v} (verbose).
+  \item \texttt{ls} $\rightarrow$ lista el contenido del directorio, confirmando que el archivo se encuentra en el directorio actual.
   \item El archivo \texttt{secuencias\_cov.fasta} quedó correctamente ubicado dentro de \texttt{analysis/actividad3}.
 \end{itemize}
 
@@ -218,111 +225,72 @@ ls
     \label{fig:figura2}
 \end{figure}
 
-El siguiente paso fue procesar el archivo \texttt{secuencias\_cov.fasta} para obtener un archivo tabulado (para mejorar la visibilidad de los datos desde la terminal) con los identificadores de secuencia y las fechas de colecta.
+El siguiente paso fue procesar el archivo \texttt{secuencias\_cov.fasta} para obtener un archivo tabulado (para mejorar la visibilidad de los datos desde la terminal) con los Accession ID y las fechas de colecta.
 Esto se logró mediante un encadenamiento de comandos que filtran, cortan y transforman el contenido:
 
 \begin{minted}{bash}
-grep "^>" secuencias_cov.fasta | cut -d"|" -f2,3 | tr '|' '\t' > fecha_de_colecta.tsv
+grep "^>" secuencias_cov.fasta | cut -d"|" -f2,3 | tr '|' $'\t' > fecha_de_colecta.tsv
 
 head -n 15 fecha_de_colecta.tsv | nl -ba
 \end{minted}
 
-\textbf{Explicación paso a paso:}
-- \verb|grep "^>"| $\rightarrow$ selecciona únicamente las líneas del archivo FASTA que corresponden a encabezados de secuencia (empiezan con el símbolo \texttt{>}).
+\textbf{Comandos utilizados:}
+\begin{itemize}
+  \item \verb|grep "^>"| $\rightarrow$ selecciona únicamente las líneas del archivo FASTA que corresponden a encabezados de secuencia (empiezan con el símbolo \texttt{>}).
 
-- \texttt{cut -d"|" -f2,3} $\rightarrow$ divide cada línea usando el carácter \texttt{|} como delimitador y extrae los campos 2 y 3 (ID y fecha de colecta).
-- \texttt{tr '|' '\t'} $\rightarrow$ reemplaza el delimitador \texttt{|} por tabulaciones, generando un archivo \texttt{.tsv} más limpio.
-- \texttt{> fecha\_de\_colecta.tsv} $\rightarrow$ guarda el resultado en un nuevo archivo.
-- \texttt{head -n 15 fecha\_de\_colecta.tsv | nl -ba} $\rightarrow$ muestra las primeras 15 líneas del archivo y las numera, incluyendo posibles líneas en blanco.
+  \item \texttt{cut -d"|" -f2,3} $\rightarrow$ divide cada línea usando el carácter \texttt{|} como delimitador y extrae los campos 2 y 3 (ID y fecha de colecta).
+  \item \texttt{tr} $\rightarrow$ reemplaza el delimitador \texttt{|} por tabulaciones, generando un archivo \texttt{.tsv} lo que facilita su vizualización desde la terminal.
+  \item \texttt{> fecha\_de\_colecta.tsv} $\rightarrow$ guarda el resultado en un nuevo archivo.
+  \item \texttt{head -n 15 fecha\_de\_colecta.tsv | nl -ba} $\rightarrow$ muestra las primeras 15 líneas del archivo y las numera, incluyendo posibles líneas en blanco.
+\end{itemize}
 
-\textbf{Justificación del encadenamiento:}
-Se decidió encadenar los comandos porque el objetivo era transformar el archivo FASTA en un formato tabulado y verificar inmediatamente el resultado. De esta manera, en una sola línea se obtiene el archivo \texttt{fecha\_de\_colecta.tsv} y se revisan sus primeras entradas, lo que asegura eficiencia y reproducibilidad.
-
-\textbf{Resultado obtenido (Figura 2):}
-\begin{verbatim}
-     1  EPI_ISL_20270803   2025-12-01
-     2  EPI_ISL_20270806   2025-12-02
-     3  EPI_ISL_20270807   2025-12-02
-     4  EPI_ISL_20276611   2025-12-01
-     5  EPI_ISL_20276614   2025-12-05
-     6  EPI_ISL_20276616   2025-12-06
-     7  EPI_ISL_20276618   2025-12-08
-     8  EPI_ISL_20279728   2025-12-03
-     9  EPI_ISL_20283220   2025-12-02
-    10  EPI_ISL_20283222   2025-12-02
-    11  EPI_ISL_20283226   2025-12-03
-    12  EPI_ISL_20283230   2025-12-04
-    13  EPI_ISL_20283240   2025-12-05
-    14  EPI_ISL_20283245   2025-12-04
-    15  EPI_ISL_20283246   2025-12-07
-\end{verbatim}
+Se decidió encadenar los comandos porque de esta manera, en una sola línea se obtiene el archivo \texttt{fecha\_de\_colecta.tsv} y se revisan sus primeras entradas, lo que asegura su eficiencia y reproducibilidad.
 
 \section{Organización del archivo FASTA en carpeta raw}
 
 \begin{figure}[htb]
     \centering
     \includegraphics[width=1\textwidth]{figuras/figura3_mv_tree.png}
-    \caption{Figura 3. movimiento de archivos procesados a raw y verificacion de estructura del proyecto con el comando tree.}
+    \caption{Figura 3. movimiento de archivos originales a raw y verificacion de estructura del proyecto con el comando tree.}
     \label{fig:figura3}
 \end{figure}
 
-Una vez generado el archivo \texttt{fecha\_de\_colecta.tsv}, el siguiente paso fue organizar los datos crudos del proyecto.
+Una vez generado el archivo \texttt{fecha\_de\_colecta.tsv}, el siguiente paso fue organizar los datos del proyecto.
 Para ello se movió el archivo \texttt{secuencias\_cov.fasta} desde el directorio de análisis hacia la carpeta \texttt{data/raw}, que está destinada a almacenar los datos originales sin procesar:
 
-\begin{minted}[fontsize=\small, frame=single, linenos]{bash}
+\begin{minted}{bash}
 mv -v secuencias_cov.fasta ~/Robles_PhageOmics_2026_Science/data/raw/
 \end{minted}
 
-\textbf{Explicación paso a paso:}
-- \texttt{mv -v secuencias\_cov.fasta ~/Robles\_PhageOmics\_2026\_Science/data/raw/} $\rightarrow$ mueve el archivo FASTA desde el directorio actual (\texttt{analysis/actividad3}) hacia la carpeta de datos crudos.
-- La opción \texttt{-v} (verbose) muestra un mensaje de confirmación, lo que permite verificar que la acción se realizó correctamente.
+%\textbf{Comandos Utilizados:}
+%- \texttt{mv -v secuencias\_cov.fasta ~/Robles\_PhageOmics\_2026\_Science/data/raw/} $\rightarrow$ mueve el archivo FASTA desde el directorio actual (\texttt{analysis/actividad3}) hacia la carpeta de datos crudos.
+%- La opción \texttt{-v} (verbose) muestra un mensaje de confirmación, lo que permite verificar que la acción se realizó correctamente.
 
-\textbf{Justificación:}
-Se decidió mover el archivo FASTA a la carpeta \texttt{raw} porque este archivo corresponde a datos originales que aún no han sido procesados. Mantener esta separación entre datos crudos y procesados es fundamental para la reproducibilidad y claridad del proyecto, evitando confusiones entre archivos de entrada y resultados derivados.
+%\textbf{Justificación:}
+%Se decidió mover el archivo FASTA a la carpeta \texttt{raw} porque este archivo corresponde a datos originales que aún no han sido procesados. Mantener esta separación entre datos crudos y procesados es fundamental para la reproducibilidad y claridad del proyecto, evitando confusiones entre archivos de entrada y resultados derivados.
 
-\textbf{Resultado obtenido (Figura 3):}
-El archivo \texttt{secuencias\_cov.fasta} quedó correctamente ubicado en la carpeta \texttt{data/raw}, mientras que el archivo \texttt{fecha\_de\_colecta.tsv} permanece en \texttt{analysis/actividad3}.
-
-\section{Organización del archivo FASTA en carpeta raw}
-
-Una vez generado el archivo \texttt{fecha\_de\_colecta.tsv}, el siguiente paso fue organizar los datos crudos del proyecto.
-Para ello se movió el archivo \texttt{secuencias\_cov.fasta} desde el directorio de análisis hacia la carpeta \texttt{data/raw}, que está destinada a almacenar los datos originales sin procesar:
-
-\begin{minted}[fontsize=\small, frame=single, linenos]{bash}
-mv -v secuencias_cov.fasta ~/Robles_PhageOmics_2026_Science/data/raw/
-\end{minted}
-
-\textbf{Explicación paso a paso:}
-- \texttt{mv -v secuencias\_cov.fasta ~/Robles\_PhageOmics\_2026\_Science/data/raw/} $\rightarrow$ mueve el archivo FASTA desde el directorio actual (\texttt{analysis/actividad3}) hacia la carpeta de datos crudos.
-- La opción \texttt{-v} (verbose) muestra un mensaje de confirmación, lo que permite verificar que la acción se realizó correctamente.
-
-\textbf{Justificación:}
-Se decidió mover el archivo FASTA a la carpeta \texttt{raw} porque este archivo corresponde a datos originales que aún no han sido procesados. Mantener esta separación entre datos crudos y procesados es fundamental para la reproducibilidad y claridad del proyecto, evitando confusiones entre archivos de entrada y resultados derivados.
-
-\textbf{Resultado obtenido (Figura 3):}
-El archivo \texttt{secuencias\_cov.fasta} quedó correctamente ubicado en la carpeta \texttt{data/raw}, mientras que el archivo \texttt{fecha\_de\_colecta.tsv} permanece en \texttt{analysis/actividad3}.
+%\textbf{Resultado obtenido (Figura 3):}
+%El archivo \texttt{secuencias\_cov.fasta} quedó correctamente ubicado en la carpeta \texttt{data/raw}, mientras que el archivo \texttt{fecha\_de\_colecta.tsv} permanece en \texttt{analysis/actividad3}.
 
 \section{Verificación de la estructura final del proyecto}
 
 Finalmente, para comprobar que los archivos quedaron correctamente organizados en sus respectivas carpetas, se utilizó el comando \texttt{tree} sobre el directorio principal del proyecto:
 
-\begin{minted}[fontsize=\small, frame=single, linenos]{bash}
+\begin{minted}{bash}
 tree ~/Robles_PhageOmics_2026_Science/
 \end{minted}
 
-\textbf{Explicación:}
 El comando \texttt{tree} recorre de manera recursiva el directorio indicado y muestra su contenido en forma de árbol. Esto permite visualizar tanto las carpetas como los archivos, y verificar que cada elemento se encuentra en la ubicación correcta.
 
-\textbf{Justificación:}
-Se eligió \texttt{tree} porque es una herramienta clara y eficiente para representar la organización de un proyecto. A diferencia de \texttt{ls}, que solo lista archivos, \texttt{tree} muestra la jerarquía completa, lo que facilita comprobar la ubicación de los archivos movidos y la coherencia de la estructura.
+\section{Conclusión}
 
-
+La actividad permitió aplicar comandos de la terminal para extraer y organizar información contenida en los encabezados del archivo secuencias\_cov.fasta. Mediante los comandos grep, cut y tr. En conjunto, estas herramientas posibilitaron la generación de un reporte con datos clave como el número de acceso y la fecha de colecta, demostrando la eficiencia de la línea de comandos en la manipulación de información biológica.
 
 \section{Bibliografía}
-%\nocite{*}
-%\printbibliography[heading=none]
+\nocite{*}
+\printbibliography[heading=none]
 
 %\newpage
-\section*{Anexos}
+%\section*{Anexos}
 
 \end{document}

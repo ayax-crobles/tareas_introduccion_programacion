@@ -15,7 +15,7 @@
 *.xdv
 
 # PDF compilado
-main.pdf
+#main.pdf
 
 # Temporales del sistema
 *~
