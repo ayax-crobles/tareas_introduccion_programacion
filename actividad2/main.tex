@@ -141,8 +141,9 @@ a4paper,
 %Bibliografía
 
 %Bibliografía con Normas APA
-%    \usepackage[backend=biber, style=apa]{biblatex}
-%    \DeclareLanguageMapping{english}{english-apa} %\addbibresource{referencias.bib}
+\usepackage[backend=biber, style=apa]{biblatex}
+\DeclareLanguageMapping{english}{english-apa}
+\addbibresource{referencias.bib}
 % útil para compactar las referencias
 %{biblatex}
 %    \setlength\bibitemsep{1.5ex}
@@ -179,14 +180,14 @@ a4paper,
 \setcounter{page}{1} % reiniciamos el contador de páginas
 \section{Organización y procesamiento de datos}
 \section*{Introducción}
-En esta segunda actividad trabajamos con el archivo \texttt{metadata\_cov.tsv}, descargado desde el aula virtual, con el objetivo principal de practicar la extracción de información relevante y la generación de reportes. La tarea se realizó en \textbf{Debian 13 Trixie}, utilizando el entorno de escritorio \textbf{XFCE} y el gestor de archivos \textbf{Thunar}.
+En esta segunda actividad trabajamos con el archivo \texttt{metadata\_cov.tsv}, descargado desde el aula virtual, con el objetivo principal de practicar la extracción de información relevante y la generación de reportes. La tarea se realizó en \textbf{Debian 13 Trixie}, utilizando el entorno de escritorio \textbf{XFCE}, \textbf{xfce4-terminal} y el gestor de archivos \textbf{Thunar}.
 
 \section{Creación del directorio de trabajo y movimiento del archivo inicial}
 
 El primer paso fue crear un nuevo directorio dentro de \texttt{analysis} llamado \texttt{actividad2}, entrar en él y mover el archivo \texttt{metadata\_cov.tsv} desde la carpeta de descargas hacia este nuevo espacio de trabajo.
 Todo esto se realizó de la siguiente manera:
 
-\begin{minted}[fontsize=\small, frame=single, linenos]{bash}
+\begin{minted}{bash}
 mkdir actividad2
 cd actividad2
 mv -v ~/Descargas/metadata_cov.tsv .
@@ -199,7 +200,7 @@ mv -v ~/Descargas/metadata_cov.tsv .
     \label{fig:figura1}
 \end{figure}
 
-\textbf{Explicación paso a paso:}
+\textbf{Comandos utilizados:}
 \begin{itemize}
   \item \texttt{mkdir actividad2} → crea la carpeta donde trabajaremos.
   \item \texttt{cd actividad2} → nos mueve directamente dentro de esa carpeta para no tener que escribir rutas largas después.
@@ -228,14 +229,14 @@ head -n 25 EPIs_cov.tsv | nl -ba
 \end{figure}
 
 
-\textbf{Uso de los comandos \texttt{cut} y \texttt{head}:}
+\textbf{Comandos utilizados:}
 \begin{itemize}
   \item\texttt{cut -f2 metadata\_cov.tsv > EPIs\_cov.tsv} $\rightarrow$ con la opción \texttt{-f2} extrae la segunda columna del archivo original y la guarda en un nuevo archivo llamado \texttt{EPIs\_cov.tsv}.
-  \item \texttt{head -n 25 EPIs\_cov.tsv \| nl -ba} $\rightarrow$ muestra las primeras 25 líneas del archivo generado y las pasa por un pipe o tubería \texttt{(|)} hacia el comando \texttt{nl -ba} que numera todas las líneas, incluyendo las líneas en blanco si las hubiera, para facilitar la visualización.
+  \item \texttt{head -n 25 EPIs\_cov.tsv | nl -ba} $\rightarrow$ muestra las primeras 25 líneas del archivo generado y las pasa por un pipe o tubería \texttt{(|)} hacia el comando \texttt{nl -ba} que numera todas las líneas, incluyendo las líneas en blanco si las hubiera, para facilitar la visualización.
 \end{itemize}
 
 \vspace{2cm}
-\textbf{Elección de los comandos:}
+\textbf{Comandos \texttt{cut} y \texttt{head}:}
 \begin{itemize}
   \item \texttt{cut} es ideal para extraer columnas específicas de archivos delimitados por tabulaciones, como los \texttt{.tsv}.
   \item\texttt{head} permite revisar solo una parte del archivo sin necesidad de abrirlo completo.
@@ -260,15 +261,15 @@ Para ello se utilizó un bloque de comandos encadenados que primero añade un en
     \label{fig:figura3}
 \end{figure}
 
-\textbf{Uso de los comandos:}
+\textbf{Comandos utilizados:}
 \begin{itemize}
   \item \texttt{echo "La cantidad de muestras de covid en Diciembre es:"} $\rightarrow$ imprime un mensaje que sirve como encabezado del reporte.
-  \item \texttt{tail -n +2 EPIs\_cov.tsv | wc -l} $\rightarrow$ muestra a partir de la segunda fila el contenido del archivo de esta forma se elimina la primera línea (cabecera) y cuenta el número de registros restantes. En casos donde la lógica es más compleja se pueden usar herramientas mas potentes como \texttt{awk} o \texttt{sed}.
+  \item \texttt{tail -n +2 EPIs\_cov.tsv | wc -l} $\rightarrow$ \textbf{tail -n +2} muestra a partir de la segunda fila el contenido del archivo de esta forma se elimina la primera línea (cabecera) y \textbf{wc-l} cuenta el número de líneas que corresponde al número de muestras. En casos donde la lógica es más compleja (muchos encabezados en el mismo archivo) se pueden usar herramientas mas potentes como \texttt{grep}, \texttt{awk} o \texttt{sed}.
   \item Todo el bloque entre llaves \texttt{\{ ... \}} se redirige con \texttt{>} al archivo \texttt{reporte\_cov.txt}.
   \item Finalmente, \texttt{cat reporte\_cov.txt} muestra el contenido del reporte en pantalla.
 \end{itemize}
 
-Se decidió agrupar los comandos dentro de llaves para generar un reporte completo en un solo paso: primero el encabezado y luego el conteo. Al encadenarlos, se asegura que el archivo \texttt{reporte\_cov.txt} quede listo con toda la información sin necesidad de editarlo manualmente después. Además, el comando \texttt{cat} al final permite verificar que el resultado es correcto.
+Se decidió agrupar los comandos dentro de llaves para generar un reporte completo en un solo paso: primero el encabezado, luego el conteo y redirigir la salida estándar del bloque de comandos dentro de las llaves hacia el archivo del reporte. Al encadenarlos, se asegura que el archivo \texttt{reporte\_cov.txt} quede listo con toda la información sin necesidad de editarlo manualmente después, o en varios pasos. Además, el comando \texttt{cat} al final permite verificar que el resultado es correcto.
 
 \section{Distribución de muestras por género}
 
@@ -289,26 +290,23 @@ cat Generos_cov.txt
     \label{fig:figura4}
 \end{figure}
 
-
-\textbf{Uso de los comandos:}
+\vspace{2cm}
+\textbf{Comandos utilizados:}
 \begin{itemize}
   \item \texttt{cut -f8 metadata\_cov.tsv > reporte\_gen.txt} $\rightarrow$ extrae la octava columna del archivo original y la guarda en un archivo intermedio.
   \item Dentro de las llaves \texttt{\{ ... \}} se ejecutan dos acciones:
   \begin{enumerate}
     \item \texttt{echo "La cantidad de muestras por género son:"} $\rightarrow$ añade un encabezado descriptivo.
-    \item \texttt{tail -n +2 reporte\_gen.txt | sort | uniq -c} $\rightarrow$ muestra a partir de la segunda fila el contenido del archivo de esta forma se elimina la primera línea que corresponde a la cabecera, ordena los valores y cuenta cuántas veces aparece cada categoría de género (Female, Male, unknown).
+    \item \texttt{tail -n +2 reporte\_gen.txt | sort | uniq -c} $\rightarrow$ muestra a partir de la segunda fila el contenido del archivo de esta forma se elimina la primera línea que corresponde al encabezado, ordena los valores y cuenta cuántas veces aparece cada categoría de género Female, Male, y unknown.
   \end{enumerate}
   \item Todo este bloque se redirige al archivo \texttt{Generos\_cov.txt}.
   \item Finalmente, \texttt{cat Generos\_cov.txt} muestra el resultado en pantalla.
 \end{itemize}
 
-\textbf{Elección de comandos:}
-\begin{itemize}
-  \item \texttt{cut} es la herramienta más directa para extraer columnas específicas de archivos tabulados.
-  \item \texttt{tail -n +2} elimina la primera línea (cabecera), lo que evita que se mezcle con los datos reales. En casos donde la lógica es más compleja se pueden usar herramientas mas potentes como \texttt{awk} o \texttt{sed}.
-  \item \texttt{sort | uniq -c} permite agrupar y contar las categorías de manera sencilla.
-  \item \texttt{cat} se usa para verificar inmediatamente el contenido del archivo generado.
-\end{itemize}
+\textbf{El comando sort y unique:}
+\begin{description}
+  \item [sort | uniq -c :] permite agrupar y contar las categorías de manera sencilla. Primero, \texttt{sort} ordena las líneas del archivo, lo que es necesario para que \texttt{uniq} pueda identificar las líneas idénticas consecutivas. Luego, \texttt{uniq -c} cuenta cuántas veces aparece cada línea única, proporcionando un conteo claro de las muestras por género.
+\end{description}
 
 \section{Organización de archivos en subdirectorios}
 
@@ -322,16 +320,16 @@ mv -v Generos_cov.txt ~/Robles_PhageOmics_2026_Science/data/processed/
 
 \begin{figure}[htb]
     \centering
-    \includegraphics[width=1\textwidth]{figuras/figura5_raw_data.png}
+    \includegraphics[width=0.8\textwidth]{figuras/figura5_raw_data.png}
     \caption{Movimiento de archivos a carpetas corrspondientes}
     \label{fig:figura5}
 \end{figure}
 
-\textbf{Uso de los comandos:}
-\begin{itemize}
-  \item \texttt{mv -v metadata\_cov.tsv ~/Robles\_PhageOmics\_2026\_Science/data/raw/} $\rightarrow$ mueve el archivo original de metadatos a la carpeta de datos crudos (\texttt{raw}).
-  \item \texttt{mv -v Generos\_cov.txt ~/Robles\_PhageOmics\_2026\_Science/data/processed/} $\rightarrow$ mueve el archivo procesado con el conteo por género a la carpeta de datos procesados.
-\end{itemize}
+%\textbf{Uso del comando \texttt{mv}:}
+%\begin{itemize}
+%  \item Mueve el archivo original de \texttt{metadata\_cov.tsv} a la carpeta de datos crudos (\texttt{raw}).
+%  \item Mueve el archivo \texttt{Generos\_cov.txt} con el conteo por género a la carpeta de datos procesados.
+%\end{itemize}
 
 \section{Estructura final del proyecto}
 
@@ -351,15 +349,15 @@ tree ~/Robles_PhageOmics_2026_Science/
 
 El comando \texttt{tree} recorre de manera recursiva los directorios y muestra su contenido en forma de árbol. Esto permite visualizar tanto las carpetas como los archivos, y comprobar que cada elemento está en el lugar correcto.
 
-A diferencia de \texttt{ls}, que solo lista archivos, \texttt{tree} muestra la jerarquía completa, lo que facilita verificar la ubicación de los archivos movidos y la coherencia de la estructura.
+%A diferencia de \texttt{ls}, que solo lista archivos, \texttt{tree} muestra la jerarquía completa, lo que facilita verificar la ubicación de los archivos movidos y la coherencia de la estructura.
 
 \section{Conclusión}
-La actividad permitió practicar la extracción de datos desde el archivo \texttt{metadata\_cov.tsv} y la generación de reportes claros y organizados. Mediante el uso de comandos encadenados, redirecciones de la salida estándar y pipes se logró filtrar información relevante, contar muestras y clasificarlas por género. Esto refuerza la importancia de dominar estos comandos para producir reportes eficientes, documentar procesos y mantener orden en el análisis de datos.
+La actividad permitió practicar la extracción de datos desde el archivo \texttt{metadata\_cov.tsv} y la generación de reportes claros y organizados. Mediante el uso de comandos encadenados, redirecciones de la salida estándar y pipes para filtrar información relevante, contar muestras y clasificarlas por género. %Esto refuerza la importancia de dominar estos comandos para producir reportes eficientes, documentar procesos y mantener orden en el análisis de datos.
 
 
 \section{Bibliografía}
-%\nocite{*}
-%\printbibliography[heading=none]
+\nocite{*}
+\printbibliography[heading=none]
 
 %\newpage
 %\section*{Anexos}

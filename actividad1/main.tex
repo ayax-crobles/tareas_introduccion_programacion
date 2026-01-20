@@ -141,8 +141,9 @@ a4paper,
 %Bibliografía
 
 %Bibliografía con Normas APA
-%    \usepackage[backend=biber, style=apa]{biblatex}
-%    \DeclareLanguageMapping{english}{english-apa} %\addbibresource{referencias.bib}
+\usepackage[backend=biber, style=apa]{biblatex}
+\DeclareLanguageMapping{english}{english-apa}
+\addbibresource{referencias.bib}
 % útil para compactar las referencias
 %{biblatex}
 %    \setlength\bibitemsep{1.5ex}
@@ -179,7 +180,7 @@ a4paper,
 \setcounter{page}{1} % reiniciamos el contador de páginas
 
 \section{Introducción}
-Esta actividad busca aplicar conceptos de organización en un \textit{espacio de trabajo} dentro del sistema operativo \textbf{GNU/Linux}, como la creación de \textit{directorios} y \textit{archivos}, además de aprender a movernos dentro de ellos de manera práctica. La tarea la llevé a cabo en \textbf{Debian 13 Trixie}, utilizando el entorno de escritorio \textbf{XFCE} y el gestor de archivos \textbf{Thunar}.
+Esta actividad busca aplicar conceptos de organización en un \textit{espacio de trabajo} dentro del sistema operativo \textbf{GNU/Linux}, como la creación de \textit{directorios} y \textit{archivos}, además de aprender a moverse dentro de ellos de manera práctica. La tarea la llevé a cabo en \textbf{Debian 13 Trixie}, utilizando el entorno de escritorio \textbf{XFCE},  \textbf{xfce4-terminal} y el gestor de archivos \textbf{Thunar}.
 
 \section{Creación del directorio de trabajo}
 
@@ -278,6 +279,7 @@ ls -Rlhi
     \label{fig:figura4}
 \end{figure}
 
+\vspace{2cm}
 Este comando combina varias opciones:
 \begin{enumerate}
     \item \texttt{R} → listado recursivo, muestra todo el contenido de subdirectorios.
@@ -325,8 +327,8 @@ Esta organización facilita que cualquier persona entienda el proyecto y refuerz
 
 
 \section{Bibliografía}
-%\nocite{*}
-%\printbibliography[heading=none]
+\nocite{*}
+\printbibliography[heading=none]
 
 %\newpage
 %\section*{Anexos}
