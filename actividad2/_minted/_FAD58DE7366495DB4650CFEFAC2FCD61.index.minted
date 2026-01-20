@@ -1,7 +1,7 @@
 {
   "jobname": "main",
   "md5": "FAD58DE7366495DB4650CFEFAC2FCD61",
-  "timestamp": "20260119155930",
+  "timestamp": "20260120142509",
   "cachefiles": [
     "24D7EB59400BBA5C6B241F23940E9F98.highlight.minted",
     "89B8EF4249A822A0F08E4EAF013343E3.highlight.minted",
@@ -10,6 +10,6 @@
     "D137F67C2EE3582893227D496C09B026.highlight.minted",
     "F17FC3D7EEF4DA4F48473772E7535CDC.highlight.minted",
     "_FAD58DE7366495DB4650CFEFAC2FCD61.index.minted",
-    "colorful.style.minted"
+    "emacs.style.minted"
   ]
 }
