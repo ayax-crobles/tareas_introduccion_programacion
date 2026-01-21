@@ -17,10 +17,10 @@ a4paper,
 
 % Tipografía y microajuste
 \usepackage[babel]{microtype}
-%\usepackage{libertinus-otf} %contine todos los tipos de letra libertinus
-\setsansfont{Libertinus Sans} %En este caso como no va a ser impreso vamos a usar sans
+\usepackage{libertinus-otf} %contine todos los tipos de letra libertinus
+%\setsansfont{Libertinus Sans} %En este caso como no va a ser impreso vamos a usar sans
 \renewcommand{\familydefault}{\sfdefault} % fuerza sans serif como fuente principal
-\setmonofont{Libertinus Mono}
+%\setmonofont{Libertinus Mono}
 
 % Diseño de página y márgenes
 \usepackage{geometry}
@@ -213,7 +213,7 @@ ls
   \item \texttt{cd actividad3} $\rightarrow$ nos mueve dentro del nuevo directorio para trabajar directamente allí.
   \item \texttt{mv -v \~/Descargas/secuencias\_cov.fasta .} $\rightarrow$ mueve el archivo desde la carpeta de descargas al directorio actual (\texttt{.}), mostrando un mensaje de lo realizado gracias a la opción \texttt{-v} (verbose).
   \item \texttt{ls} $\rightarrow$ lista el contenido del directorio, confirmando que el archivo se encuentra en el directorio actual.
-  \item El archivo \texttt{secuencias\_cov.fasta} quedó correctamente ubicado dentro de \texttt{analysis/actividad3}.
+  \item El archivo \texttt{secuencias\_cov.fasta} quedó ubicado dentro de \texttt{analysis/actividad3}.
 \end{itemize}
 
 \section{Extracción de fechas de colecta}
@@ -229,7 +229,7 @@ El siguiente paso fue procesar el archivo \texttt{secuencias\_cov.fasta} para ob
 Esto se logró mediante un encadenamiento de comandos que filtran, cortan y transforman el contenido:
 
 \begin{minted}{bash}
-grep "^>" secuencias_cov.fasta | cut -d"|" -f2,3 | tr '|' $'\t' > fecha_de_colecta.tsv
+grep "^>" secuencias_cov.fasta | cut -d"|" -f2,3 | tr '|' $'\t' | -k1n > fecha_de_colecta.tsv
 
 head -n 15 fecha_de_colecta.tsv | nl -ba
 \end{minted}
@@ -240,8 +240,9 @@ head -n 15 fecha_de_colecta.tsv | nl -ba
 
   \item \texttt{cut -d"|" -f2,3} $\rightarrow$ divide cada línea usando el carácter \texttt{|} como delimitador y extrae los campos 2 y 3 (ID y fecha de colecta).
   \item \texttt{tr} $\rightarrow$ reemplaza el delimitador \texttt{|} por tabulaciones, generando un archivo \texttt{.tsv} lo que facilita su vizualización desde la terminal.
-  \item \texttt{> fecha\_de\_colecta.tsv} $\rightarrow$ guarda el resultado en un nuevo archivo.
-  \item \texttt{head -n 15 fecha\_de\_colecta.tsv | nl -ba} $\rightarrow$ muestra las primeras 15 líneas del archivo y las numera, incluyendo posibles líneas en blanco.
+  \item \texttt{sort -k1n} $\rightarrow$ ordena el resultado por el primer campo con la opción \texttt{-k1} que corresponde a \texttt{Accesion ID} y lo hace por orden numerico gracias a la opción \texttt{-n}.
+  \item \texttt{> fecha\_de\_colecta.tsv} $\rightarrow$ redirecciona la salida (el resultado) hacia un nuevo archivo.
+  \item \texttt{head -n 15 fecha\_de\_colecta.tsv | nl -ba} $\rightarrow$ muestra las primeras 15 líneas del archivo y las numera (para mejorar la visibilidad), incluyendo posibles líneas en blanco.
 \end{itemize}
 
 Se decidió encadenar los comandos porque de esta manera, en una sola línea se obtiene el archivo \texttt{fecha\_de\_colecta.tsv} y se revisan sus primeras entradas, lo que asegura su eficiencia y reproducibilidad.

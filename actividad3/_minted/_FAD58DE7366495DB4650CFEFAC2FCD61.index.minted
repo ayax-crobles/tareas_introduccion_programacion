@@ -1,11 +1,11 @@
 {
   "jobname": "main",
   "md5": "FAD58DE7366495DB4650CFEFAC2FCD61",
-  "timestamp": "20260120142742",
+  "timestamp": "20260120202836",
   "cachefiles": [
-    "3E1F88FF95AFE5C97D09BEB28D291D62.highlight.minted",
     "847F2EE3D49152EFB83F9D5E8E2BC39A.highlight.minted",
     "89B8EF4249A822A0F08E4EAF013343E3.highlight.minted",
+    "BA2CC88D9DE55010BC2CF03CBC0E61A4.highlight.minted",
     "D893B4A2F50FCC160149FED055730090.highlight.minted",
     "_FAD58DE7366495DB4650CFEFAC2FCD61.index.minted",
     "emacs.style.minted"
